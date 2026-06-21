@@ -227,14 +227,14 @@
 <body>
 
 <header>
-  <div class="logo">anjana<span class="dot">.</span>pm</div>
+  <div class="logo">Anjana<span class="dot">.</span>S A</div>
   <nav class="headlinks">
     <a class="back-link" href="index.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       All cases
     </a>
-    <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a href="mailto:youremail@example.com">Contact</a>
+    <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:anjanasa066@gmail.com">Contact</a>
   </nav>
 </header>
 
@@ -244,7 +244,7 @@
     <span class="tag-status">Live, built &amp; deployed</span>
   </div>
   <h1 class="case-title">ResuMatch: a <span class="accent">three-LLM pipeline</span> that tailors your resume to one job, not every job</h1>
-  <p class="case-sub">Most resume tools rewrite tone, not substance. I built a working multi-agent pipeline — ATS keyword extraction, X-Y-Z bullet rewriting, and a tailored cover letter — chained across three coordinated LLM calls, to see what it actually takes to make a tool that reads the job description instead of ignoring it.</p>
+  <p class="case-sub">Most resume tools rewrite tone, not substance. I built a working multi-agent pipeline- ATS keyword extraction, X-Y-Z bullet rewriting, and a tailored cover letter- chained across three coordinated LLM calls, to see what it actually takes to make a tool that reads the job description instead of ignoring it.</p>
   <div class="fw-row">
     <span class="fw-pill">Prompt Engineering</span>
     <span class="fw-pill">Multi-Agent Pipeline</span>
@@ -253,7 +253,7 @@
   </div>
   <a class="live-link" href="https://resumatch-resumegenerator.lovable.app/" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
-    Try it live — resumatch-resumegenerator.lovable.app
+    Try it live- resumatch-resumegenerator.lovable.app
   </a>
 </section>
 
@@ -275,8 +275,8 @@
     <div class="panel active" id="panel-problem">
       <div class="panel-eyebrow">Why I built this</div>
       <h2>I wanted to actually build with agents and LLM chains, not just talk about them</h2>
-      <p>This is my passion project — the one case study in this portfolio that isn't a strategy proposal but a real, working build. I wanted hands-on experience designing a multi-step LLM pipeline: how to split a task across specialized prompts, pass structured data between them, and handle the messy edge cases that any AI tool hits in practice (missing data, placeholder text, formatting drift).</p>
-      <p>The product question behind it is real too: most "AI resume builder" tools rewrite tone and formatting but don't actually engage with the specific job description in front of you. I wanted to test whether a tightly-scoped, ATS-aware pipeline could do better — extracting the actual keywords a given JD cares about, and writing toward them, rather than producing one generic "improved" resume regardless of role.</p>
+      <p>This is my passion project- the one case study in this portfolio that isn't a strategy proposal but a real, working build. I wanted hands-on experience designing a multi-step LLM pipeline: how to split a task across specialized prompts, pass structured data between them, and handle the messy edge cases that any AI tool hits in practice (missing data, placeholder text, formatting drift).</p>
+      <p>The product question behind it is real too: most "AI resume builder" tools rewrite tone and formatting but don't actually engage with the specific job description in front of you. I wanted to test whether a tightly-scoped, ATS-aware pipeline could do better- extracting the actual keywords a given JD cares about, and writing toward them, rather than producing one generic "improved" resume regardless of role.</p>
 
       <div class="stat-grid">
         <div class="stat-card">
@@ -285,7 +285,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-num">1</div>
-          <div class="stat-label">model used throughout — Gemini 2.5 Flash (free tier)</div>
+          <div class="stat-label">model used throughout- Gemini 2.5 Flash (free tier)</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">5</div>
@@ -376,13 +376,13 @@
           <path d="M580 280 L658 195" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
         </svg>
       </div>
-      <div class="pipeline-caption">Redrawn from the deployed Dify workflow — Doc Extractor fans out to 3 chained LLM calls, converging at Output</div>
+      <div class="pipeline-caption">Redrawn from the deployed Dify workflow- Doc Extractor fans out to 3 chained LLM calls, converging at Output</div>
 
-      <p>The detail that took the most iteration: <strong>LLM 2 (resume rewrite) consumes the output of the keyword-extraction LLM</strong>, but <strong>LLM 3 (cover letter) does not</strong> — it reads the job description directly instead. That's deliberate, not an oversight: a resume benefits from dense, ATS-targeted keyword presence; a cover letter that's visibly keyword-stuffed reads as robotic to a human reader. Same job description, two different downstream needs, so the pipeline routes data differently for each.</p>
+      <p>The detail that took the most iteration: <strong>LLM 2 (resume rewrite) consumes the output of the keyword-extraction LLM</strong>, but <strong>LLM 3 (cover letter) does not</strong>- it reads the job description directly instead. That's deliberate, not an oversight: a resume benefits from dense, ATS-targeted keyword presence; a cover letter that's visibly keyword-stuffed reads as robotic to a human reader. Same job description, two different downstream needs, so the pipeline routes data differently for each.</p>
 
       <div class="callout mint">
         <b>Why a Doc Extractor node at all</b>
-        Resumes arrive as PDFs, Docx files, or pasted text — never clean structured data. The Doc Extractor node normalizes whatever comes in in into plain text before any LLM sees it, so the downstream prompts can assume consistent input rather than each handling file-parsing edge cases themselves.
+        Resumes arrive as PDFs, Docx files, or pasted text- never clean structured data. The Doc Extractor node normalizes whatever comes in in into plain text before any LLM sees it, so the downstream prompts can assume consistent input rather than each handling file-parsing edge cases themselves.
       </div>
     </div>
 
@@ -390,7 +390,7 @@
     <div class="panel" id="panel-prompts">
       <div class="panel-eyebrow">The prompts</div>
       <h2>System prompts, as actually deployed</h2>
-      <p>These are the real prompts running in the live pipeline — not simplified for this write-up. I'm including them because the prompt design <em>is</em> the product here; the UI is a thin wrapper around three carefully scoped instructions.</p>
+      <p>These are the real prompts running in the live pipeline- not simplified for this write-up. I'm including them because the prompt design <em>is</em> the product here; the UI is a thin wrapper around three carefully scoped instructions.</p>
 
       <div class="prompt-block">
         <div class="prompt-head">
@@ -417,7 +417,7 @@ CRITICAL EXECUTION RULES:
 <span class="rule">1. TRUTH &amp; INTEGRITY:</span> Never invent fake companies, modify real employment dates, or fabricate metrics. Reframe how existing experience is communicated.
 <span class="rule">2. THE X-Y-Z FORMULA:</span> Rewrite professional experience bullet points using the formula: "Accomplished [X], as measured by [Y], by doing [Z]". Use strong, active action verbs.
 <span class="rule">3. KEYWORD INTEGRATION:</span> Naturally integrate the provided ATS keywords seamlessly into the bullet points. Do not keyword stuff.
-<span class="rule">4. FORMAT:</span> Output in clean, professional Markdown — standard headings (##), bold text (**), bullet points (*). No greeting or conversational fluff.
+<span class="rule">4. FORMAT:</span> Output in clean, professional Markdown- standard headings (##), bold text (**), bullet points (*). No greeting or conversational fluff.
 <span class="rule">5. MISSING DATA HANDLING:</span> If resume data contains placeholder text like "[Your Name]" or "[City, State]", do not output the bracketed placeholders. Omit the contact section entirely and start at ## Professional Summary. If graduation dates or university names are missing, write only the verified information (e.g. "Bachelor of Science" instead of "Bachelor of Science | [Your University]").</div>
       </div>
 
@@ -439,13 +439,13 @@ STRUCTURE RULES:
 EXECUTION RULES:
 1. Do not invent any fake metrics or experience. Only use what is provided in the resume.
 2. Output completely in clean Markdown format.
-3. No introductory conversational fluff — start directly with the letter.
+3. No introductory conversational fluff- start directly with the letter.
 4. MISSING DATA HANDLING: If contact names, company locations, or personal data are missing, do not output bracketed placeholders like "[Company Name]" or "[Date]". Use professional generic styling or skip the header block, moving straight into "Dear Hiring Manager,"</div>
       </div>
 
       <div class="callout">
         <b>The rule I'm most proud of</b>
-        Rule 1 in LLM 2 and Rule 1 in LLM 3 both explicitly forbid inventing metrics, companies, or experience. It would have been trivial to let the model "enhance" a thin resume with plausible-sounding fabrications — and early test runs without this constraint did exactly that. Writing the prompt to refuse fabrication, even when the honest output is less impressive, was a deliberate trade-off: a tailored resume that lies is worse than no tool at all.
+        Rule 1 in LLM 2 and Rule 1 in LLM 3 both explicitly forbid inventing metrics, companies, or experience. It would have been trivial to let the model "enhance" a thin resume with plausible-sounding fabrications- and early test runs without this constraint did exactly that. Writing the prompt to refuse fabrication, even when the honest output is less impressive, was a deliberate trade-off: a tailored resume that lies is worse than no tool at all.
       </div>
     </div>
 
@@ -456,7 +456,7 @@ EXECUTION RULES:
       <p>The Dify workflow sits behind a simple three-field interface built in Lovable: target role, current resume (paste or upload), and the target job description. One click runs the full pipeline and returns a tailored resume and cover letter side by side, ready to copy or download.</p>
 
       <div class="screenshot-frame">
-        <img src="resumatch-ui.png" alt="ResuMatch web interface showing three input fields — target role type, current resume, and target job description — alongside an empty results panel reading 'Your tailored application will appear here'">
+        <img src="resumatch-ui.png" alt="ResuMatch web interface showing three input fields- target role type, current resume, and target job description- alongside an empty results panel reading 'Your tailored application will appear here'">
       </div>
 
       <div class="journey">
@@ -464,14 +464,14 @@ EXECUTION RULES:
           <div class="j-num">1</div>
           <div class="j-content">
             <h3>Three inputs</h3>
-            <p>Target role, resume (paste or PDF/Docx upload), and the job description — no account, no setup.</p>
+            <p>Target role, resume (paste or PDF/Docx upload), and the job description- no account, no setup.</p>
           </div>
         </div>
         <div class="j-step">
           <div class="j-num">2</div>
           <div class="j-content">
             <h3>One generate call</h3>
-            <p>Triggers the full Dify pipeline — extraction, keyword analysis, and two parallel writing passes — behind a single button.</p>
+            <p>Triggers the full Dify pipeline- extraction, keyword analysis, and two parallel writing passes- behind a single button.</p>
           </div>
         </div>
         <div class="j-step">
@@ -490,14 +490,14 @@ EXECUTION RULES:
     <div class="panel" id="panel-constraints">
       <div class="panel-eyebrow">Constraints</div>
       <h2>Building on a free-tier API budget</h2>
-      <p>This whole pipeline runs on <strong>Gemini 2.5 Flash</strong>, used for all three LLM calls — a deliberate choice driven by token-budget reality, not by it being the ideal model for every step. Building under that constraint shaped real decisions:</p>
+      <p>This whole pipeline runs on <strong>Gemini 2.5 Flash</strong>, used for all three LLM calls- a deliberate choice driven by token-budget reality, not by it being the ideal model for every step. Building under that constraint shaped real decisions:</p>
 
       <div class="callout coral">
         <b>Constraint → decision</b>
-        Using one fast, free-tier model for everything meant accepting a quality ceiling on the more nuanced writing tasks (the cover letter especially) in exchange for the pipeline being runnable end-to-end without a billing dependency. Each LLM node is also configured to retry up to 3 times on failure — a pragmatic guard against the rate-limiting and occasional instability that comes with free-tier API usage.
+        Using one fast, free-tier model for everything meant accepting a quality ceiling on the more nuanced writing tasks (the cover letter especially) in exchange for the pipeline being runnable end-to-end without a billing dependency. Each LLM node is also configured to retry up to 3 times on failure- a pragmatic guard against the rate-limiting and occasional instability that comes with free-tier API usage.
       </div>
 
-      <p>The keyword-extraction step (LLM 1) is the cheapest, most deterministic task in the pipeline — strict comma-separated output, no creative writing — so it tolerates a smaller/faster model well. The resume and cover letter rewrites (LLM 2, LLM 3) are where model quality would matter most if this were scaled beyond a personal project.</p>
+      <p>The keyword-extraction step (LLM 1) is the cheapest, most deterministic task in the pipeline- strict comma-separated output, no creative writing- so it tolerates a smaller/faster model well. The resume and cover letter rewrites (LLM 2, LLM 3) are where model quality would matter most if this were scaled beyond a personal project.</p>
     </div>
 
     <!-- 06 IMPROVEMENTS -->
@@ -511,21 +511,21 @@ EXECUTION RULES:
           <div class="j-num">1</div>
           <div class="j-content">
             <h3>Split models by task, not one model for all three</h3>
-            <p>I'd keep a fast/cheap model for the deterministic keyword-extraction step, but move the resume and cover letter rewrites to a stronger reasoning model — the writing quality gap matters most exactly where the task is least deterministic.</p>
+            <p>I'd keep a fast/cheap model for the deterministic keyword-extraction step, but move the resume and cover letter rewrites to a stronger reasoning model- the writing quality gap matters most exactly where the task is least deterministic.</p>
           </div>
         </div>
         <div class="j-step">
           <div class="j-num">2</div>
           <div class="j-content">
             <h3>Add a structured ATS-score output, not just keywords</h3>
-            <p>Right now LLM 1 outputs a keyword list. With more headroom, I'd have it return a structured match score against the JD plus a gap list — so the user sees not just the tailored output but why it changed.</p>
+            <p>Right now LLM 1 outputs a keyword list. With more headroom, I'd have it return a structured match score against the JD plus a gap list- so the user sees not just the tailored output but why it changed.</p>
           </div>
         </div>
         <div class="j-step">
           <div class="j-num">3</div>
           <div class="j-content">
             <h3>Add a verification pass</h3>
-            <p>A fourth LLM call (or a deterministic check) that diffs the rewritten resume against the original to confirm no dates, employers, or metrics were altered — turning the "don't fabricate" prompt rule into something I can actually verify, not just instruct.</p>
+            <p>A fourth LLM call (or a deterministic check) that diffs the rewritten resume against the original to confirm no dates, employers, or metrics were altered- turning the "don't fabricate" prompt rule into something I can actually verify, not just instruct.</p>
           </div>
         </div>
       </div>
@@ -535,9 +535,9 @@ EXECUTION RULES:
     <div class="panel" id="panel-reflections">
       <div class="panel-eyebrow">Reflections</div>
       <h2>What this taught me</h2>
-      <p>The most useful lesson wasn't about prompt-writing technique — it was about <strong>data routing</strong>. Deciding that LLM 3 should see the raw job description instead of the keyword list LLM 1 produced was a small architectural choice with an outsized effect on output quality: it's the difference between a cover letter that reads like a person and one that reads like a keyword list wearing a trench coat.</p>
-      <p>I'd also flag the anti-fabrication rules as the part of this project I'd defend hardest in an interview. It's tempting to let an LLM "fill gaps" to make a thin resume look stronger, and a less careful prompt would do exactly that. Writing explicit constraints against fabricating companies, dates, or metrics — and testing that the model actually honors them — felt like the real product work here, more than the formatting or UI.</p>
-      <p>The biggest open question I'd want real user data on: does a fully automated three-LLM pipeline actually produce a <em>better</em> tailored resume than a careful human editing pass with AI assistance, or does it just produce a faster one? I built this to find out hands-on what a multi-agent chain can and can't do well — and the honest answer right now is that it's very good at structure and keyword alignment, and still needs a human's judgment on what to emphasize.</p>
+      <p>The most useful lesson wasn't about prompt-writing technique- it was about <strong>data routing</strong>. Deciding that LLM 3 should see the raw job description instead of the keyword list LLM 1 produced was a small architectural choice with an outsized effect on output quality: it's the difference between a cover letter that reads like a person and one that reads like a keyword list wearing a trench coat.</p>
+      <p>I'd also flag the anti-fabrication rules as the part of this project I'd defend hardest in an interview. It's tempting to let an LLM "fill gaps" to make a thin resume look stronger, and a less careful prompt would do exactly that. Writing explicit constraints against fabricating companies, dates, or metrics- and testing that the model actually honors them- felt like the real product work here, more than the formatting or UI.</p>
+      <p>The biggest open question I'd want real user data on: does a fully automated three-LLM pipeline actually produce a <em>better</em> tailored resume than a careful human editing pass with AI assistance, or does it just produce a faster one? I built this to find out hands-on what a multi-agent chain can and can't do well- and the honest answer right now is that it's very good at structure and keyword alignment, and still needs a human's judgment on what to emphasize.</p>
     </div>
 
   </div>
@@ -553,7 +553,7 @@ EXECUTION RULES:
 
 <footer>
   <span>Bengaluru · 2026</span>
-  <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
 </footer>
 
 <script>
