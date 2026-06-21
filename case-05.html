@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 05 — Jar Payroll Micro-Savings · Anjana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --navy: #0F1029;
+    --navy-deep: #0A0B1F;
+    --navy-card: #161833;
+    --navy-line: #2A2C52;
+    --paper: #ECE8DF;
+    --ink-soft: #B8B9D4;
+    --gold: #E8A93D;
+    --gold-bright: #F5C25C;
+    --gold-pale: rgba(232,169,61,0.12);
+    --mute: #7A7C9E;
+    --green: #4ADE80;
+    --shadow: rgba(0,0,0,0.4);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--navy-deep);
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(232,169,61,0.07), transparent 45%),
+      radial-gradient(circle at 90% 30%, rgba(232,169,61,0.05), transparent 40%);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  /* ===== Header ===== */
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px clamp(20px,5vw,64px) 18px;
+    border-bottom:1px solid var(--navy-line);
+    position:sticky; top:0; background:rgba(10,11,31,0.92);
+    backdrop-filter:blur(8px);
+    z-index:50;
+  }
+  .logo{ font-family:'Spectral', serif; font-weight:700; font-size:1.15rem; color:var(--paper); }
+  .logo .dot{ color:var(--gold); }
+  nav.headlinks{ display:flex; gap:28px; align-items:center; }
+  nav.headlinks a{
+    font-size:0.85rem; font-weight:600; color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+    padding-bottom:2px;
+  }
+  nav.headlinks a:hover{ color:var(--gold-bright); border-color:var(--gold-bright); }
+  .back-link{ display:flex; align-items:center; gap:6px; }
+  .back-link svg{ width:14px; height:14px; }
+
+  /* ===== Hero ===== */
+  .case-hero{ padding:clamp(36px,6vw,64px) clamp(20px,5vw,64px) 0; max-width:1100px; }
+  .case-tags{ display:flex; gap:8px; align-items:center; margin-bottom:18px; flex-wrap:wrap; }
+  .tag-num{
+    font-family:'JetBrains Mono', monospace; font-size:0.75rem; font-weight:600;
+    background:var(--gold); color:var(--navy-deep); padding:4px 10px 3px; border-radius:3px;
+  }
+  .tag-status{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.06em;
+    border:1.5px solid var(--mute); color:var(--ink-soft);
+    padding:3px 9px; border-radius:3px;
+  }
+  h1.case-title{
+    font-family:'Spectral', serif; font-weight:600;
+    font-size:clamp(1.9rem, 4.2vw, 3rem);
+    line-height:1.1; letter-spacing:-0.01em; max-width:20ch;
+    color:#fff;
+  }
+  h1.case-title em{ font-style:italic; color:var(--gold-bright); }
+  .case-sub{ margin-top:18px; max-width:64ch; font-size:1.05rem; color:var(--ink-soft); }
+  .fw-row{ margin-top:24px; display:flex; gap:8px; flex-wrap:wrap; }
+  .fw-pill{
+    font-family:'JetBrains Mono', monospace; font-size:0.74rem;
+    padding:5px 12px; border:1px solid var(--navy-line); border-radius:20px; color:var(--ink-soft);
+    background:var(--navy-card);
+  }
+
+  /* ===== Layout ===== */
+  .case-body{
+    display:grid; grid-template-columns: 230px 1fr; gap:48px;
+    max-width:1100px; margin:0 auto;
+    padding:44px clamp(20px,5vw,64px) 100px; align-items:start;
+  }
+  .side-nav{ position:sticky; top:96px; display:flex; flex-direction:column; gap:2px; border-left:2px solid var(--navy-line); }
+  .side-nav button{
+    all:unset; cursor:pointer; font-family:'Inter', sans-serif;
+    font-size:0.86rem; font-weight:600; color:var(--mute);
+    padding:10px 0 10px 18px; border-left:2px solid transparent; margin-left:-2px;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .side-nav button:hover{ color:var(--paper); }
+  .side-nav button.active{ color:var(--gold-bright); border-left:2px solid var(--gold); }
+  .side-nav .step-no{ font-family:'JetBrains Mono', monospace; font-size:0.7rem; margin-right:8px; color:var(--mute); }
+  .side-nav button.active .step-no{ color:var(--gold); }
+
+  .panels{ min-width:0; }
+  .panel{ display:none; animation: fadeIn .25s ease; }
+  .panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .panel-eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.74rem;
+    text-transform:uppercase; letter-spacing:0.1em; color:var(--gold);
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .panel-eyebrow::before{ content:""; width:16px; height:1px; background:var(--gold); }
+  .panel h2{ font-family:'Spectral', serif; font-weight:600; font-size:1.65rem; margin-bottom:18px; color:#fff; letter-spacing:-0.01em; }
+  .panel p{ margin-bottom:14px; color:var(--ink-soft); font-size:0.98rem; }
+  .panel strong{ color:var(--paper); }
+  .panel em{ color:var(--gold-bright); font-style:normal; font-weight:600; }
+
+  .callout{
+    background:var(--gold-pale); border-left:3px solid var(--gold);
+    padding:16px 18px; border-radius:4px; font-size:0.92rem; margin:20px 0; color:var(--paper);
+  }
+  .callout b{ font-family:'JetBrains Mono', monospace; font-size:0.78rem; text-transform:uppercase; display:block; margin-bottom:6px; letter-spacing:0.05em; color:var(--gold-bright); }
+  .callout.green{ background:rgba(74,222,128,0.1); border-left-color:var(--green); }
+  .callout.green b{ color:var(--green); }
+
+  .src{ font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--mute); vertical-align:super; margin-left:2px; }
+  .sources-block{ margin-top:28px; padding-top:18px; border-top:1px dashed var(--navy-line); font-size:0.78rem; color:var(--mute); }
+  .sources-block li{ margin-bottom:4px; list-style:none; }
+
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:14px; margin:22px 0; }
+  .stat-card{ background:var(--navy-card); border:1px solid var(--navy-line); border-radius:8px; padding:18px 16px; }
+  .stat-num{ font-family:'Spectral', serif; font-weight:700; font-size:1.9rem; color:var(--gold-bright); }
+  .stat-label{ font-size:0.78rem; color:var(--ink-soft); margin-top:4px; }
+  .stat-src{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; color:var(--mute); margin-top:8px; }
+
+  .chart-wrap{ background:var(--navy-card); border:1px solid var(--navy-line); border-radius:8px; padding:22px 20px; margin:22px 0; }
+  .chart-title{ font-family:'JetBrains Mono', monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--mute); margin-bottom:16px; }
+  .bar-row{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .bar-label{ width:170px; font-size:0.8rem; color:var(--ink-soft); flex-shrink:0; }
+  .bar-track{ flex-grow:1; background:var(--navy-deep); border-radius:3px; height:20px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--gold); border-radius:3px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+  .bar-fill span{ font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--navy-deep); font-weight:700; }
+
+  /* ===== Product showcase blocks ===== */
+  .product-block{
+    background:var(--navy-card); border:1px solid var(--navy-line); border-radius:14px;
+    padding:28px; margin:26px 0;
+  }
+  .product-head{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .product-icon{
+    width:34px; height:34px; border-radius:8px; background:var(--gold-pale);
+    display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;
+  }
+  .product-name{ font-family:'Spectral', serif; font-weight:700; font-size:1.25rem; color:#fff; }
+  .product-renamed{ font-family:'JetBrains Mono', monospace; font-size:0.66rem; color:var(--mute); margin-top:4px; padding-left:46px; }
+  .product-desc{ color:var(--ink-soft); font-size:0.92rem; margin:14px 0 18px; }
+  .product-img{ width:100%; border-radius:10px; overflow:hidden; border:1px solid var(--navy-line); }
+  .product-img img{ width:100%; display:block; }
+  .feature-list{ display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+  .feature-item{ display:flex; gap:8px; align-items:flex-start; font-size:0.86rem; color:var(--ink-soft); }
+  .feature-item svg{ width:15px; height:15px; color:var(--gold); flex-shrink:0; margin-top:2px; }
+
+  /* ===== RICE table ===== */
+  .rice-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:0.86rem; }
+  .rice-table th{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--mute); text-align:left; padding:8px 10px;
+    border-bottom:1.5px solid var(--gold);
+  }
+  .rice-table td{ padding:10px 10px; border-bottom:1px solid var(--navy-line); color:var(--ink-soft); }
+  .rice-table tr:last-child td{ font-weight:700; color:#fff; background:var(--gold-pale); }
+  .rice-table td:first-child{ font-weight:600; color:var(--paper); }
+
+  .journey{ display:flex; flex-direction:column; gap:0; margin:24px 0; }
+  .j-step{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding-bottom:28px; position:relative; }
+  .j-step:not(:last-child)::before{ content:""; position:absolute; left:19px; top:38px; bottom:0; width:1px; background:var(--navy-line); }
+  .j-num{
+    width:38px; height:38px; border-radius:50%; background:var(--gold); color:var(--navy-deep);
+    display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem; font-weight:700; flex-shrink:0; z-index:1;
+  }
+  .j-content h3{ font-family:'Spectral', serif; font-weight:600; font-size:1.08rem; margin-bottom:6px; color:#fff; }
+  .j-content p{ font-size:0.9rem; color:var(--ink-soft); margin-bottom:0; }
+
+  .case-foot-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    max-width:1100px; margin:0 auto; padding:0 clamp(20px,5vw,64px) 60px;
+    border-top:1px solid var(--navy-line); padding-top:28px;
+  }
+  .case-foot-nav a{ font-size:0.86rem; font-weight:600; color:var(--ink-soft); display:flex; align-items:center; gap:6px; }
+  .case-foot-nav a:hover{ color:var(--gold-bright); }
+
+  footer{
+    border-top:1px solid var(--navy-line); padding:26px clamp(20px,5vw,64px) 40px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.82rem; color:var(--mute); flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:860px){
+    .case-body{ grid-template-columns:1fr; }
+    .side-nav{
+      position:static; flex-direction:row; flex-wrap:wrap; border-left:none;
+      border-bottom:1px solid var(--navy-line); padding-bottom:14px; gap:8px;
+    }
+    .side-nav button{ border-left:none; border:1px solid var(--navy-line); border-radius:20px; padding:7px 14px; margin-left:0; font-size:0.78rem; }
+    .side-nav button.active{ border-color:var(--gold); background:var(--gold-pale); }
+    .bar-label{ width:120px; font-size:0.74rem; }
+    .product-renamed{ padding-left:0; margin-top:8px; }
+  }
+  @media (max-width:560px){ header{ flex-direction:column; align-items:flex-start; gap:14px; } }
+  @media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">anjana<span class="dot">.</span>pm</div>
+  <nav class="headlinks">
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      All cases
+    </a>
+    <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:youremail@example.com">Contact</a>
+  </nav>
+</header>
+
+<section class="case-hero">
+  <div class="case-tags">
+    <span class="tag-num">CASE 05</span>
+    <span class="tag-status">In progress</span>
+  </div>
+  <h1 class="case-title">Jar: turning <em>salary day</em> into a savings habit, not just round-off change</h1>
+  <p class="case-sub">Jar built its entire base on spare-change micro-savings. What would it take to bring that same habit-forming mechanic upstream — into the moment salary lands — as a B2B benefit employers can offer at zero payroll friction?</p>
+  <div class="fw-row">
+    <span class="fw-pill">Hook Model</span>
+    <span class="fw-pill">OKRs</span>
+    <span class="fw-pill">RICE</span>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <nav class="side-nav" id="sideNav">
+    <button data-panel="problem" class="active"><span class="step-no mono">01</span>The problem</button>
+    <button data-panel="jtbd"><span class="step-no mono">02</span>Who it's for</button>
+    <button data-panel="sizing"><span class="step-no mono">03</span>Why it matters</button>
+    <button data-panel="solutions"><span class="step-no mono">04</span>Three concepts</button>
+    <button data-panel="prioritization"><span class="step-no mono">05</span>Prioritization</button>
+    <button data-panel="metrics"><span class="step-no mono">06</span>Success metrics</button>
+    <button data-panel="reflections"><span class="step-no mono">07</span>Reflections</button>
+  </nav>
+
+  <div class="panels">
+
+    <!-- 01 PROBLEM -->
+    <div class="panel active" id="panel-problem">
+      <div class="panel-eyebrow">The problem</div>
+      <h2>Salary day is the highest-intent, least-used moment to start a savings habit</h2>
+      <p>Jar's core mechanic — round off spare change from everyday spending into digital gold — works because it asks almost nothing of the user. But it only catches money <em>after</em> it's already been spent down to small change. The moment with the most savings potential is actually earlier: the instant salary lands, before the month's spending has eaten into it.</p>
+      <p>That moment is underserved. Most salaried Indians don't have an automatic, no-effort way to set money aside the day they're paid — saving still requires a deliberate, manual action at exactly the moment discretionary spending pressure is lowest in willpower terms but highest in available cash. <strong>71% of Indian employees report dissatisfaction with their current pay</strong><span class="src">[1]</span>, and <strong>81% plan to ask their employer for a raise in the next year</strong><span class="src">[1]</span> — a workforce that feels financially stretched, even while a large share are formally employed with predictable salary cycles Jar could plug directly into.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">71%</div>
+          <div class="stat-label">of Indian employees dissatisfied with current pay</div>
+          <div class="stat-src">ACCA Report, 2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">81%</div>
+          <div class="stat-label">plan to ask for a raise in the next 12 months</div>
+          <div class="stat-src">ACCA Report, 2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">29%</div>
+          <div class="stat-label">only are satisfied with their salary today</div>
+          <div class="stat-src">ACCA Report, 2026</div>
+        </div>
+      </div>
+
+      <p>Take-home pay feels insufficient for a large majority of the salaried workforce — exactly the anxiety a payroll-linked saving habit is positioned to soften. The opportunity isn't to fix what people are paid; it's to make sure a small, automatic slice of it turns into something that holds value before the rest gets spent.</p>
+
+      <div class="sources-block">
+        <li>[1] ACCA (Association of Chartered Certified Accountants), "Global Talent Trends" survey reported via India.com / Newkerala, 2026</li>
+      </div>
+    </div>
+
+    <!-- 02 JTBD -->
+    <div class="panel" id="panel-jtbd">
+      <div class="panel-eyebrow">Who it's for</div>
+      <h2>HR and Finance managers at SMBs and gig-economy employers</h2>
+      <p>The buyer isn't the employee — it's the HR or Finance manager deciding what benefit to offer. Their job is distinct from the end-saver's job:</p>
+
+      <div class="callout">
+        <b>HR / Finance Manager — Persona</b>
+        "When I'm trying to reduce salary-advance requests and attrition tied to financial stress, I want a benefit that costs little and requires no payroll engineering, so I can offer real financial wellbeing support without adding operational burden."
+      </div>
+
+      <p>This persona already has reasons to trust the mechanic Jar would be selling them: gold is a culturally familiar, low-risk asset in India, not an unfamiliar investment product HR would need to explain or defend. And the underlying employee behavior — small, frequent, habitual saving — is exactly what Jar's consumer base has already proven works at scale on the spending side; this is a bet that the same psychology transfers to the earning side.</p>
+
+      <p>Two adoption risks specific to this persona, though: <strong>payroll integration anxiety</strong> (any benefit that touches payroll feels operationally risky to an SMB without a dedicated systems team) and <strong>low employee financial literacy</strong> paired with <strong>high mobile adoption</strong> — meaning the pitch to HR has to lean on "zero employee effort," not "employees will learn a new financial habit."</p>
+    </div>
+
+    <!-- 03 SIZING -->
+    <div class="panel" id="panel-sizing">
+      <div class="panel-eyebrow">Why it matters</div>
+      <h2>Sizing the opportunity</h2>
+      <p>Jar's existing scale gives this real distribution potential — it isn't a cold start. Based on its most recent disclosures:</p>
+
+      <div class="chart-wrap">
+        <div class="chart-title">Jar's scale today</div>
+        <div class="bar-row">
+          <div class="bar-label">Registered users</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%"><span>35M+</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">FY25 revenue growth YoY</div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%"><span>49x</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Tier-2/3 city users</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"><span>~60%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">First-time formal savers</div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%"><span>95%+</span></div></div>
+        </div>
+        <div class="stat-src" style="margin-top:8px;">Sources: TechCrunch (Sept 2025), Tracxn (2026), Jar company site</div>
+      </div>
+
+      <p>Jar crossed into <strong>profitability in FY25</strong><span class="src">[2]</span> — meaning the company has the balance sheet headroom to fund a new B2B vertical without it needing to be self-sustaining from day one. That doesn't make a payroll product trivial to build, but it lowers the bar for treating this as a real bet rather than a stretch.</p>
+
+      <p>I found no evidence Jar (or a close competitor) has announced or shipped a B2B payroll-linked savings product as of mid-2026 — this remains an open lane, not one Jar has already claimed.</p>
+
+      <div class="sources-block">
+        <li>[2] Moneycontrol, "Jar posts ₹2,448 cr revenue after accounting change, narrows losses by 69% in FY25," Sept 2025</li>
+      </div>
+    </div>
+
+    <!-- 04 SOLUTIONS -->
+    <div class="panel" id="panel-solutions">
+      <div class="panel-eyebrow">Three concepts</div>
+      <h2>What I'd build</h2>
+      <p>Three candidate products, each testing a different mechanism for turning salary day into a saving moment. Naming below reflects what these would actually be called inside Jar's product language — <em>Jar Auto-Save</em>, <em>Jar Streaks</em>, and <em>Jar for Teams</em> — rather than generic feature names.</p>
+
+      <!-- Product 1 -->
+      <div class="product-block">
+        <div class="product-head">
+          <div class="product-icon">⚡</div>
+          <div>
+            <div class="product-name">Jar Auto-Save</div>
+          </div>
+        </div>
+        <p class="product-desc">An adaptive savings engine that allocates 1–5% of incoming salary into gold automatically, adjusting month to month based on the employee's actual spending stability — not a fixed percentage that ignores a month with unusually high expenses.</p>
+        <div class="product-img"><img src="jar-goldflex.png" alt="Jar Auto-Save app screens: AI-recommended monthly contribution setup, and a 12-month adaptive savings projection with liquidity guardrails"></div>
+        <div class="feature-list">
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Adaptive allocation (1–5% of salary), recalculated monthly against spending history</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Liquidity guardrails — caps saving so rent and bills are never put at risk</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Salary-day nudges before the contribution is deducted, not after</div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-block">
+        <div class="product-head">
+          <div class="product-icon">🔥</div>
+          <div>
+            <div class="product-name">Jar Streaks</div>
+          </div>
+        </div>
+        <p class="product-desc">Small gold rewards for consistent saving behavior — completing a salary-day save, holding a multi-month streak — with optional employer co-contribution as a visible match, similar in spirit to a 401(k) match but in grams of gold instead of currency.</p>
+        <div class="product-img"><img src="jar-perks.png" alt="Jar Streaks app screens: monthly gold rewards earned, employer-matched contribution, streak badges, and a success confirmation after gold is added to the vault"></div>
+        <div class="feature-list">
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Streak-based gold rewards for consistent salary-day saving</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Optional employer-matched gold contribution, visible as a separate line item</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Redeemable at Jar's Nek jewellery platform or convertible to cash</div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-block">
+        <div class="product-head">
+          <div class="product-icon">🏢</div>
+          <div>
+            <div class="product-name">Jar for Teams</div>
+          </div>
+        </div>
+        <p class="product-desc">A fully employer-funded micro-gold benefit — the employee does nothing. The employer commits a fixed monthly amount, optionally tied to tenure or attendance milestones, and it accrues automatically with zero action required from the employee.</p>
+        <div class="product-img"><img src="jar-vault.png" alt="Jar for Teams app screens: employer-sponsored micro-gold benefit breakdown by performance, attendance, and tenure, plus a tenure milestone tracker"></div>
+        <div class="feature-list">
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Employer-funded, rule-based contribution — no employee action required</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Tenure and milestone vesting, similar in structure to ESOP cliffs</div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg> Sits entirely outside payroll — funded and administered through Jar directly</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <b>A note on the mockup numbers</b>
+        The product screens shown here use illustrative rupee figures (e.g. "12g ≈ ₹70k") that don't match current gold pricing — 24K gold is trading around <strong>₹14,600/gram</strong> as of June 2026<span class="src">[4]</span>. I haven't redrawn the mockups, just flagging that any rupee figures in them would need refreshing against live gold rates before this goes in front of anyone evaluating the business case.
+      </div>
+      <div class="sources-block">
+        <li>[4] Goodreturns / GoldMeter, India 24K gold rate, 20 June 2026</li>
+      </div>
+    </div>
+
+    <!-- 05 PRIORITIZATION -->
+    <div class="panel" id="panel-prioritization">
+      <div class="panel-eyebrow">Prioritization</div>
+      <h2>What I'd build first, and why</h2>
+      <p>Of the three, <strong>Jar for Teams</strong> is the right MVP — not because it's the most ambitious, but because it's the only one that requires zero behavior change from the employee, which matters enormously given HR's stated pain point is exactly "low adoption of tools that ask anything of low-literacy, high-attrition-risk workers."</p>
+
+      <table class="rice-table">
+        <thead>
+          <tr><th>Concept</th><th>Reach</th><th>Impact</th><th>Confidence</th><th>Effort</th><th>RICE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jar for Teams</td><td>6</td><td>2</td><td>75%</td><td>2</td><td>4.5</td></tr>
+          <tr><td>Jar Auto-Save</td><td>7</td><td>2.5</td><td>50%</td><td>4</td><td>2.2</td></tr>
+          <tr><td>Jar Streaks</td><td>8</td><td>1.5</td><td>65%</td><td>2.5</td><td>3.1</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <b>Why Jar Auto-Save scores lowest despite being the most "AI-native" idea</b>
+        Auto-Save requires predicting individual spending stability accurately enough to set a contribution employees won't immediately cancel — that's a real cold-start modeling problem with low initial confidence, and the effort to do it well (vs. token-gesture "AI personalization") is genuinely high. I'd sequence it as a v2 layer on top of Jar for Teams once there's real salary-cycle data to model against, not as the wedge product.
+      </div>
+
+      <p><strong>MVP scope:</strong> launch Jar for Teams with 3–5 pilot SMB or gig-platform employers in one city, employer-funded only (no employee opt-in friction), measuring whether HR teams actually renew the benefit after one quarter before building the more behaviorally complex Streaks or Auto-Save layers on top.</p>
+    </div>
+
+    <!-- 06 METRICS -->
+    <div class="panel" id="panel-metrics">
+      <div class="panel-eyebrow">Success metrics</div>
+      <h2>How I'd know it's working</h2>
+      <p><strong>North star:</strong> Payroll Activation Rate — the % of employees at a partnered employer who have an active, ongoing micro-gold accrual, whether employer-funded or self-funded.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">↑</div>
+          <div class="stat-label">Payroll activation rate per employer cohort</div>
+          <div class="stat-src">North star</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">↑</div>
+          <div class="stat-label">Employer renewal rate at end of pilot quarter</div>
+          <div class="stat-src">Leading indicator — B2B health</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">→</div>
+          <div class="stat-label">AUM per activated employee, 90 days post-launch</div>
+          <div class="stat-src">Counter-metric / depth check</div>
+        </div>
+      </div>
+
+      <p>The counter-metric matters because activation rate alone can be misleading — an employer could "activate" every employee by auto-enrolling them into a token ₹50/month benefit that nobody actually engages with. AUM per activated employee checks whether the saving is meaningful, not just nominally switched on.</p>
+
+      <div class="callout green">
+        <b>30 / 90 / 365-day view</b>
+        At 30 days: did pilot employers actually complete payroll/benefit setup without heavy hand-holding from Jar's team — a proxy for whether "zero payroll friction" is true in practice, not just in the pitch. At 90 days: is AUM per employee growing, or did it plateau immediately after employer-funded contributions landed once. At 365 days: do pilot employers renew and expand headcount coverage — the real test of whether this is a benefit HR believes is working, not just one they tried once.
+      </div>
+    </div>
+
+    <!-- 07 REFLECTIONS -->
+    <div class="panel" id="panel-reflections">
+      <div class="panel-eyebrow">Reflections</div>
+      <h2>What I'd do differently</h2>
+      <p>The biggest assumption underneath this whole case study is that gold is the right asset wrapper for a payroll benefit. It works for Jar's consumer product because gold is culturally trusted and the amounts are genuinely tiny — but a payroll benefit is implicitly a bigger, more serious commitment from an employer, and I'd want real data on whether HR buyers actually prefer gold over something that reads as more "financial" to them, like a fixed deposit or an EPF top-up, even if gold tests better with end employees.</p>
+      <p>I'd also want a standing habit of re-verifying the numbers underpinning this case before anyone acts on it — pay-satisfaction surveys, user-base figures, and gold pricing all move quickly enough that any of them could be meaningfully off within a quarter. The strategic logic doesn't depend on the exact figures, but a pitch loses credibility fast if the numbers in it don't hold up under a quick check.</p>
+      <p>The biggest open risk is payroll integration itself — Jar for Teams is designed to sit "outside payroll" specifically to avoid this, but if HR buyers still perceive any salary-adjacent benefit as operationally risky regardless of actual integration depth, the zero-friction pitch may not be enough to overcome that perception. I'd want to pressure-test that objection directly with pilot HR teams before investing further.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="case-foot-nav">
+  <a href="case-04.html">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Previous case
+  </a>
+  <a href="index.html">All cases</a>
+</div>
+
+<footer>
+  <span>Bengaluru · 2026</span>
+  <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+</footer>
+
+<script>
+  const navButtons = document.querySelectorAll('.side-nav button');
+  const panels = document.querySelectorAll('.panel');
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = btn.dataset.panel;
+      navButtons.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + target).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.case-body').offsetTop - 90, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
