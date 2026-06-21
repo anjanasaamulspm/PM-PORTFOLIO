@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 02 — ResuMatch: AI Resume & Cover Letter Generator · Anjana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ink: #10131A;
+    --ink-deep: #0A0C11;
+    --paper: #E8EAED;
+    --text-soft: #9CA3B5;
+    --blue: #7C9EFF;
+    --blue-dim: #4A5FB8;
+    --blue-pale: rgba(124,158,255,0.12);
+    --mint: #5FD9A4;
+    --mint-pale: rgba(95,217,164,0.1);
+    --coral: #FF8A65;
+    --coral-pale: rgba(255,138,101,0.1);
+    --line: #232838;
+    --card: #161A24;
+    --mute: #5C6273;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--ink-deep);
+    background-image:
+      linear-gradient(180deg, rgba(124,158,255,0.04) 0%, transparent 18%),
+      radial-gradient(circle at 85% 8%, rgba(95,217,164,0.05), transparent 40%);
+    color:var(--paper);
+    font-family:'JetBrains Mono', monospace;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sans{ font-family:'Inter', sans-serif; }
+  a{ color:inherit; text-decoration:none; }
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+
+  /* ===== Header ===== */
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px clamp(20px,5vw,64px) 16px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:rgba(10,12,17,0.92);
+    backdrop-filter:blur(8px);
+    z-index:50;
+  }
+  .logo{ font-family:'Spectral', serif; font-weight:700; font-size:1.1rem; color:var(--paper); }
+  .logo .dot{ color:var(--blue); }
+  nav.headlinks{ display:flex; gap:26px; align-items:center; }
+  nav.headlinks a{
+    font-size:0.78rem; font-weight:500; color:var(--text-soft);
+    border-bottom:1px solid transparent; transition:border-color .2s ease, color .2s ease; padding-bottom:2px;
+  }
+  nav.headlinks a:hover{ color:var(--blue); border-color:var(--blue); }
+  .back-link{ display:flex; align-items:center; gap:6px; }
+  .back-link svg{ width:13px; height:13px; }
+
+  /* ===== Hero ===== */
+  .case-hero{ padding:clamp(36px,6vw,64px) clamp(20px,5vw,64px) 0; max-width:1100px; }
+  .case-tags{ display:flex; gap:8px; align-items:center; margin-bottom:18px; flex-wrap:wrap; }
+  .tag-num{
+    font-size:0.72rem; font-weight:700; background:var(--blue); color:var(--ink-deep);
+    padding:4px 10px 3px; border-radius:3px;
+  }
+  .tag-status{
+    font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+    border:1.5px solid var(--mint); color:var(--mint); padding:3px 9px; border-radius:3px;
+    display:flex; align-items:center; gap:5px;
+  }
+  .tag-status::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--mint); display:inline-block; }
+  h1.case-title{
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size:clamp(1.9rem, 4.2vw, 3.1rem);
+    line-height:1.08; letter-spacing:-0.02em; max-width:18ch; color:#fff;
+  }
+  h1.case-title .accent{ color:var(--blue); }
+  .case-sub{ margin-top:18px; max-width:66ch; font-size:0.95rem; color:var(--text-soft); font-family:'Inter', sans-serif; line-height:1.7; }
+  .fw-row{ margin-top:24px; display:flex; gap:8px; flex-wrap:wrap; }
+  .fw-pill{
+    font-size:0.7rem; padding:5px 12px; border:1px solid var(--line); border-radius:20px;
+    color:var(--text-soft); background:var(--card);
+  }
+  .live-link{
+    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; color:var(--blue); border:1px solid var(--blue-dim);
+    padding:8px 14px; border-radius:6px; background:var(--blue-pale);
+    transition:background .2s ease;
+  }
+  .live-link:hover{ background:rgba(124,158,255,0.2); }
+  .live-link svg{ width:13px; height:13px; }
+
+  /* ===== Layout ===== */
+  .case-body{
+    display:grid; grid-template-columns: 220px 1fr; gap:48px;
+    max-width:1100px; margin:0 auto;
+    padding:44px clamp(20px,5vw,64px) 100px; align-items:start;
+  }
+  .side-nav{ position:sticky; top:88px; display:flex; flex-direction:column; gap:2px; border-left:2px solid var(--line); }
+  .side-nav button{
+    all:unset; cursor:pointer; font-family:'Inter', sans-serif;
+    font-size:0.82rem; font-weight:600; color:var(--mute);
+    padding:9px 0 9px 18px; border-left:2px solid transparent; margin-left:-2px;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .side-nav button:hover{ color:var(--paper); }
+  .side-nav button.active{ color:var(--blue); border-left:2px solid var(--blue); }
+  .side-nav .step-no{ font-size:0.68rem; margin-right:8px; color:var(--mute); }
+  .side-nav button.active .step-no{ color:var(--mint); }
+
+  .panels{ min-width:0; }
+  .panel{ display:none; animation: fadeIn .25s ease; }
+  .panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .panel-eyebrow{
+    font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--blue);
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .panel-eyebrow::before{ content:""; width:16px; height:1px; background:var(--blue); }
+  .panel h2{
+    font-family:'Inter', sans-serif; font-weight:700; font-size:1.5rem;
+    margin-bottom:18px; color:#fff; letter-spacing:-0.01em;
+  }
+  .panel p{ margin-bottom:14px; color:var(--text-soft); font-size:0.88rem; font-family:'Inter', sans-serif; line-height:1.75; }
+  .panel strong{ color:var(--paper); font-weight:600; }
+  .panel code{
+    font-family:'JetBrains Mono', monospace; background:var(--card); color:var(--mint);
+    padding:2px 6px; border-radius:3px; font-size:0.84em; border:1px solid var(--line);
+  }
+
+  .callout{
+    background:var(--blue-pale); border-left:3px solid var(--blue);
+    padding:16px 18px; border-radius:4px; font-size:0.86rem; margin:20px 0; color:var(--paper);
+    font-family:'Inter', sans-serif; line-height:1.7;
+  }
+  .callout b{ font-size:0.7rem; text-transform:uppercase; display:block; margin-bottom:8px; letter-spacing:0.06em; color:var(--blue); font-family:'JetBrains Mono', monospace; }
+  .callout.mint{ background:var(--mint-pale); border-left-color:var(--mint); }
+  .callout.mint b{ color:var(--mint); }
+  .callout.coral{ background:var(--coral-pale); border-left-color:var(--coral); }
+  .callout.coral b{ color:var(--coral); }
+
+  /* ===== Prompt blocks ===== */
+  .prompt-block{
+    background:var(--card); border:1px solid var(--line); border-radius:8px;
+    margin:18px 0; overflow:hidden;
+  }
+  .prompt-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 16px; border-bottom:1px solid var(--line); background:rgba(124,158,255,0.04);
+  }
+  .prompt-head-left{ display:flex; align-items:center; gap:10px; }
+  .prompt-dot{ width:8px; height:8px; border-radius:50%; }
+  .prompt-dot.blue{ background:var(--blue); }
+  .prompt-dot.mint{ background:var(--mint); }
+  .prompt-dot.coral{ background:var(--coral); }
+  .prompt-name{ font-size:0.78rem; font-weight:600; color:var(--paper); }
+  .prompt-model{ font-size:0.66rem; color:var(--mute); padding:2px 8px; border:1px solid var(--line); border-radius:10px; }
+  .prompt-body{ padding:16px; font-size:0.78rem; color:var(--text-soft); white-space:pre-wrap; line-height:1.7; max-height:280px; overflow-y:auto; }
+  .prompt-body .var{ color:var(--mint); }
+  .prompt-body .rule{ color:var(--blue); }
+
+  /* ===== Pipeline diagram ===== */
+  .pipeline-frame{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:24px 18px; margin:22px 0; overflow-x:auto;
+  }
+  .pipeline-caption{ text-align:center; font-size:0.68rem; color:var(--mute); margin-top:12px; font-family:'JetBrains Mono', monospace; }
+
+  /* ===== Stat / fact cards ===== */
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:14px; margin:22px 0; }
+  .stat-card{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:16px 15px; }
+  .stat-num{ font-family:'Inter', sans-serif; font-weight:800; font-size:1.6rem; color:var(--blue); }
+  .stat-label{ font-size:0.72rem; color:var(--text-soft); margin-top:4px; font-family:'Inter', sans-serif; }
+
+  /* ===== Flow steps ===== */
+  .journey{ display:flex; flex-direction:column; gap:0; margin:24px 0; }
+  .j-step{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding-bottom:24px; position:relative; }
+  .j-step:not(:last-child)::before{ content:""; position:absolute; left:17px; top:34px; bottom:0; width:1px; background:var(--line); }
+  .j-num{
+    width:34px; height:34px; border-radius:6px; background:var(--blue); color:var(--ink-deep);
+    display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; z-index:1;
+  }
+  .j-content h3{ font-family:'Inter', sans-serif; font-weight:700; font-size:0.96rem; margin-bottom:5px; color:#fff; }
+  .j-content p{ font-size:0.82rem; color:var(--text-soft); margin-bottom:0; font-family:'Inter', sans-serif; }
+
+  /* ===== Screenshot frame ===== */
+  .screenshot-frame{
+    border-radius:10px; overflow:hidden; border:1px solid var(--line); margin:22px 0;
+  }
+  .screenshot-frame img{ width:100%; display:block; }
+
+  .sources-block{ margin-top:24px; padding-top:16px; border-top:1px dashed var(--line); font-size:0.7rem; color:var(--mute); font-family:'Inter', sans-serif; }
+  .sources-block li{ margin-bottom:4px; list-style:none; }
+
+  .case-foot-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    max-width:1100px; margin:0 auto; padding:0 clamp(20px,5vw,64px) 60px;
+    border-top:1px solid var(--line); padding-top:26px; font-family:'Inter', sans-serif;
+  }
+  .case-foot-nav a{ font-size:0.82rem; font-weight:600; color:var(--text-soft); display:flex; align-items:center; gap:6px; }
+  .case-foot-nav a:hover{ color:var(--blue); }
+
+  footer{
+    border-top:1px solid var(--line); padding:24px clamp(20px,5vw,64px) 36px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.76rem; color:var(--mute); flex-wrap:wrap; gap:10px; font-family:'Inter', sans-serif;
+  }
+
+  @media (max-width:860px){
+    .case-body{ grid-template-columns:1fr; }
+    .side-nav{
+      position:static; flex-direction:row; flex-wrap:wrap; border-left:none;
+      border-bottom:1px solid var(--line); padding-bottom:14px; gap:8px;
+    }
+    .side-nav button{ border-left:none; border:1px solid var(--line); border-radius:20px; padding:6px 13px; margin-left:0; font-size:0.74rem; }
+    .side-nav button.active{ border-color:var(--blue); background:var(--blue-pale); }
+  }
+  @media (max-width:560px){ header{ flex-direction:column; align-items:flex-start; gap:14px; } }
+  @media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">anjana<span class="dot">.</span>pm</div>
+  <nav class="headlinks">
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      All cases
+    </a>
+    <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:youremail@example.com">Contact</a>
+  </nav>
+</header>
+
+<section class="case-hero">
+  <div class="case-tags">
+    <span class="tag-num">CASE 02</span>
+    <span class="tag-status">Live, built &amp; deployed</span>
+  </div>
+  <h1 class="case-title">ResuMatch: a <span class="accent">three-LLM pipeline</span> that tailors your resume to one job, not every job</h1>
+  <p class="case-sub">Most resume tools rewrite tone, not substance. I built a working multi-agent pipeline — ATS keyword extraction, X-Y-Z bullet rewriting, and a tailored cover letter — chained across three coordinated LLM calls, to see what it actually takes to make a tool that reads the job description instead of ignoring it.</p>
+  <div class="fw-row">
+    <span class="fw-pill">Prompt Engineering</span>
+    <span class="fw-pill">Multi-Agent Pipeline</span>
+    <span class="fw-pill">Dify</span>
+    <span class="fw-pill">Gemini 2.5 Flash</span>
+  </div>
+  <a class="live-link" href="https://resumatch-resumegenerator.lovable.app/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+    Try it live — resumatch-resumegenerator.lovable.app
+  </a>
+</section>
+
+<div class="case-body">
+
+  <nav class="side-nav" id="sideNav">
+    <button data-panel="problem" class="active"><span class="step-no">01</span>Why I built this</button>
+    <button data-panel="architecture"><span class="step-no">02</span>The pipeline</button>
+    <button data-panel="prompts"><span class="step-no">03</span>The prompts</button>
+    <button data-panel="product"><span class="step-no">04</span>The product</button>
+    <button data-panel="constraints"><span class="step-no">05</span>Constraints</button>
+    <button data-panel="improvements"><span class="step-no">06</span>What I'd improve</button>
+    <button data-panel="reflections"><span class="step-no">07</span>Reflections</button>
+  </nav>
+
+  <div class="panels">
+
+    <!-- 01 PROBLEM / WHY -->
+    <div class="panel active" id="panel-problem">
+      <div class="panel-eyebrow">Why I built this</div>
+      <h2>I wanted to actually build with agents and LLM chains, not just talk about them</h2>
+      <p>This is my passion project — the one case study in this portfolio that isn't a strategy proposal but a real, working build. I wanted hands-on experience designing a multi-step LLM pipeline: how to split a task across specialized prompts, pass structured data between them, and handle the messy edge cases that any AI tool hits in practice (missing data, placeholder text, formatting drift).</p>
+      <p>The product question behind it is real too: most "AI resume builder" tools rewrite tone and formatting but don't actually engage with the specific job description in front of you. I wanted to test whether a tightly-scoped, ATS-aware pipeline could do better — extracting the actual keywords a given JD cares about, and writing toward them, rather than producing one generic "improved" resume regardless of role.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">chained LLM calls, each with a distinct job</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1</div>
+          <div class="stat-label">model used throughout — Gemini 2.5 Flash (free tier)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5</div>
+          <div class="stat-label">workflow nodes in the deployed Dify pipeline</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 ARCHITECTURE -->
+    <div class="panel" id="panel-architecture">
+      <div class="panel-eyebrow">The pipeline</div>
+      <h2>How the workflow is actually wired</h2>
+      <p>Built and deployed in Dify. Three user inputs feed a document extractor, which fans out to three parallel-ish LLM calls with different jobs, converging on a single output block.</p>
+
+      <div class="pipeline-frame">
+        <svg viewBox="0 0 880 320" width="100%" style="min-width:760px;">
+          <defs>
+            <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#5C6273"/>
+            </marker>
+          </defs>
+
+          <!-- START -->
+          <g transform="translate(10,90)">
+            <rect width="150" height="140" rx="8" fill="#161A24" stroke="#232838" stroke-width="1.5"/>
+            <text x="14" y="22" font-family="JetBrains Mono" font-size="9" fill="#5C6273" letter-spacing="1">START</text>
+            <circle cx="130" cy="18" r="5" fill="#5FD9A4"/>
+            <text x="14" y="44" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">User Input</text>
+            <text x="14" y="68" font-family="JetBrains Mono" font-size="8.5" fill="#7C9EFF">Target_Role</text>
+            <text x="14" y="86" font-family="JetBrains Mono" font-size="8.5" fill="#7C9EFF">Current_Resume</text>
+            <text x="14" y="104" font-family="JetBrains Mono" font-size="8.5" fill="#7C9EFF">Job_description</text>
+          </g>
+
+          <!-- DOC EXTRACTOR -->
+          <g transform="translate(210,120)">
+            <rect width="150" height="70" rx="8" fill="#161A24" stroke="#5FD9A4" stroke-width="1.5"/>
+            <circle cx="130" cy="14" r="5" fill="#5FD9A4"/>
+            <text x="14" y="22" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">Doc Extractor</text>
+            <text x="14" y="42" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">parses Current_Resume</text>
+            <text x="14" y="56" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">→ plain text</text>
+          </g>
+
+          <!-- LLM (keywords) -->
+          <g transform="translate(420,20)">
+            <rect width="160" height="78" rx="8" fill="#161A24" stroke="#7C9EFF" stroke-width="1.5"/>
+            <circle cx="140" cy="14" r="5" fill="#5FD9A4"/>
+            <text x="14" y="22" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">LLM · Keywords</text>
+            <text x="14" y="42" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">ATS extraction from</text>
+            <text x="14" y="56" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">Job_description</text>
+            <text x="14" y="70" font-family="JetBrains Mono" font-size="7.5" fill="#5C6273">Gemini 2.5 Flash · retry x3</text>
+          </g>
+
+          <!-- LLM 2 (resume) -->
+          <g transform="translate(420,140)">
+            <rect width="160" height="78" rx="8" fill="#161A24" stroke="#7C9EFF" stroke-width="1.5"/>
+            <circle cx="140" cy="14" r="5" fill="#5FD9A4"/>
+            <text x="14" y="22" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">LLM 2 · Resume</text>
+            <text x="14" y="42" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">rewrites resume w/</text>
+            <text x="14" y="56" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">role + keywords</text>
+            <text x="14" y="70" font-family="JetBrains Mono" font-size="7.5" fill="#5C6273">Gemini 2.5 Flash · retry x3</text>
+          </g>
+
+          <!-- LLM 3 (cover letter) -->
+          <g transform="translate(420,250)">
+            <rect width="160" height="60" rx="8" fill="#161A24" stroke="#7C9EFF" stroke-width="1.5"/>
+            <circle cx="140" cy="14" r="5" fill="#5FD9A4"/>
+            <text x="14" y="22" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">LLM 3 · Cover Letter</text>
+            <text x="14" y="42" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">resume + full JD → letter</text>
+            <text x="14" y="56" font-family="JetBrains Mono" font-size="7.5" fill="#5C6273">Gemini 2.5 Flash · retry x3</text>
+          </g>
+
+          <!-- OUTPUT -->
+          <g transform="translate(660,130)">
+            <rect width="150" height="80" rx="8" fill="#161A24" stroke="#FF8A65" stroke-width="1.5"/>
+            <circle cx="130" cy="14" r="5" fill="#5FD9A4"/>
+            <text x="14" y="22" font-family="Inter" font-size="10" font-weight="700" fill="#E8EAED">Output</text>
+            <text x="14" y="42" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">LLM 2 → resume text</text>
+            <text x="14" y="56" font-family="JetBrains Mono" font-size="8" fill="#9CA3B5">LLM 3 → letter text</text>
+          </g>
+
+          <!-- Arrows -->
+          <path d="M160 160 L208 155" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M360 145 L418 65" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M360 155 L418 175" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M360 165 L418 275" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M580 58 L658 150" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M580 175 L658 170" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+          <path d="M580 280 L658 195" stroke="#5C6273" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+        </svg>
+      </div>
+      <div class="pipeline-caption">Redrawn from the deployed Dify workflow — Doc Extractor fans out to 3 chained LLM calls, converging at Output</div>
+
+      <p>The detail that took the most iteration: <strong>LLM 2 (resume rewrite) consumes the output of the keyword-extraction LLM</strong>, but <strong>LLM 3 (cover letter) does not</strong> — it reads the job description directly instead. That's deliberate, not an oversight: a resume benefits from dense, ATS-targeted keyword presence; a cover letter that's visibly keyword-stuffed reads as robotic to a human reader. Same job description, two different downstream needs, so the pipeline routes data differently for each.</p>
+
+      <div class="callout mint">
+        <b>Why a Doc Extractor node at all</b>
+        Resumes arrive as PDFs, Docx files, or pasted text — never clean structured data. The Doc Extractor node normalizes whatever comes in in into plain text before any LLM sees it, so the downstream prompts can assume consistent input rather than each handling file-parsing edge cases themselves.
+      </div>
+    </div>
+
+    <!-- 03 PROMPTS -->
+    <div class="panel" id="panel-prompts">
+      <div class="panel-eyebrow">The prompts</div>
+      <h2>System prompts, as actually deployed</h2>
+      <p>These are the real prompts running in the live pipeline — not simplified for this write-up. I'm including them because the prompt design <em>is</em> the product here; the UI is a thin wrapper around three carefully scoped instructions.</p>
+
+      <div class="prompt-block">
+        <div class="prompt-head">
+          <div class="prompt-head-left"><span class="prompt-dot blue"></span><span class="prompt-name">LLM · ATS Keyword Extractor</span></div>
+          <span class="prompt-model">Gemini 2.5 Flash</span>
+        </div>
+        <div class="prompt-body">You are an advanced Applicant Tracking System (ATS) parsing algorithm. Analyze the job description provided by the user. Extract exactly 10-12 technical hard skills and keywords mentioned. Format the output strictly as a comma-separated list. Do not include conversational filler.
+
+Job Description to analyze: <span class="var">{{Job_description}}</span></div>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-head">
+          <div class="prompt-head-left"><span class="prompt-dot blue"></span><span class="prompt-name">LLM 2 · Executive Resume Writer</span></div>
+          <span class="prompt-model">Gemini 2.5 Flash</span>
+        </div>
+        <div class="prompt-body">You are an elite Executive Resume Writer. Your task is to rewrite the user's current resume to align perfectly with their desired target role.
+
+Target Role: <span class="var">{{Target_Role}}</span>
+Original Resume Data: <span class="var">{{Doc_Extractor.text}}</span>
+ATS Keywords to integrate naturally: <span class="var">{{LLM.text}}</span>
+
+CRITICAL EXECUTION RULES:
+<span class="rule">1. TRUTH &amp; INTEGRITY:</span> Never invent fake companies, modify real employment dates, or fabricate metrics. Reframe how existing experience is communicated.
+<span class="rule">2. THE X-Y-Z FORMULA:</span> Rewrite professional experience bullet points using the formula: "Accomplished [X], as measured by [Y], by doing [Z]". Use strong, active action verbs.
+<span class="rule">3. KEYWORD INTEGRATION:</span> Naturally integrate the provided ATS keywords seamlessly into the bullet points. Do not keyword stuff.
+<span class="rule">4. FORMAT:</span> Output in clean, professional Markdown — standard headings (##), bold text (**), bullet points (*). No greeting or conversational fluff.
+<span class="rule">5. MISSING DATA HANDLING:</span> If resume data contains placeholder text like "[Your Name]" or "[City, State]", do not output the bracketed placeholders. Omit the contact section entirely and start at ## Professional Summary. If graduation dates or university names are missing, write only the verified information (e.g. "Bachelor of Science" instead of "Bachelor of Science | [Your University]").</div>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-head">
+          <div class="prompt-head-left"><span class="prompt-dot blue"></span><span class="prompt-name">LLM 3 · Cover Letter Writer</span></div>
+          <span class="prompt-model">Gemini 2.5 Flash</span>
+        </div>
+        <div class="prompt-body">You are an expert career coach and professional copywriter. Your task is to write a highly compelling, tailored, 3-paragraph cover letter based on the user's resume and the job description.
+
+Original Resume Data: <span class="var">{{Doc_Extractor.text}}</span>
+Target Job Description: <span class="var">{{Job_description}}</span>
+
+STRUCTURE RULES:
+<span class="rule">Paragraph 1:</span> A powerful opening hook stating the applicant's enthusiasm for the role and why their background makes them a unique fit.
+<span class="rule">Paragraph 2:</span> Pick ONE impressive, metrics-driven achievement from the resume that directly addresses a primary requirement in the job description.
+<span class="rule">Paragraph 3:</span> A clear call to action expressing a desire for an interview, followed by a professional sign-off.
+
+EXECUTION RULES:
+1. Do not invent any fake metrics or experience. Only use what is provided in the resume.
+2. Output completely in clean Markdown format.
+3. No introductory conversational fluff — start directly with the letter.
+4. MISSING DATA HANDLING: If contact names, company locations, or personal data are missing, do not output bracketed placeholders like "[Company Name]" or "[Date]". Use professional generic styling or skip the header block, moving straight into "Dear Hiring Manager,"</div>
+      </div>
+
+      <div class="callout">
+        <b>The rule I'm most proud of</b>
+        Rule 1 in LLM 2 and Rule 1 in LLM 3 both explicitly forbid inventing metrics, companies, or experience. It would have been trivial to let the model "enhance" a thin resume with plausible-sounding fabrications — and early test runs without this constraint did exactly that. Writing the prompt to refuse fabrication, even when the honest output is less impressive, was a deliberate trade-off: a tailored resume that lies is worse than no tool at all.
+      </div>
+    </div>
+
+    <!-- 04 PRODUCT -->
+    <div class="panel" id="panel-product">
+      <div class="panel-eyebrow">The product</div>
+      <h2>What the user actually sees</h2>
+      <p>The Dify workflow sits behind a simple three-field interface built in Lovable: target role, current resume (paste or upload), and the target job description. One click runs the full pipeline and returns a tailored resume and cover letter side by side, ready to copy or download.</p>
+
+      <div class="screenshot-frame">
+        <img src="resumatch-ui.png" alt="ResuMatch web interface showing three input fields — target role type, current resume, and target job description — alongside an empty results panel reading 'Your tailored application will appear here'">
+      </div>
+
+      <div class="journey">
+        <div class="j-step">
+          <div class="j-num">1</div>
+          <div class="j-content">
+            <h3>Three inputs</h3>
+            <p>Target role, resume (paste or PDF/Docx upload), and the job description — no account, no setup.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num">2</div>
+          <div class="j-content">
+            <h3>One generate call</h3>
+            <p>Triggers the full Dify pipeline — extraction, keyword analysis, and two parallel writing passes — behind a single button.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num">3</div>
+          <div class="j-content">
+            <h3>Tailored output, ready to use</h3>
+            <p>A rewritten resume and a custom cover letter appear together, formatted in clean Markdown, ready to copy or download.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>Live at <a class="live-link" style="margin-top:0;" href="https://resumatch-resumegenerator.lovable.app/" target="_blank" rel="noopener">resumatch-resumegenerator.lovable.app ↗</a></p>
+    </div>
+
+    <!-- 05 CONSTRAINTS -->
+    <div class="panel" id="panel-constraints">
+      <div class="panel-eyebrow">Constraints</div>
+      <h2>Building on a free-tier API budget</h2>
+      <p>This whole pipeline runs on <strong>Gemini 2.5 Flash</strong>, used for all three LLM calls — a deliberate choice driven by token-budget reality, not by it being the ideal model for every step. Building under that constraint shaped real decisions:</p>
+
+      <div class="callout coral">
+        <b>Constraint → decision</b>
+        Using one fast, free-tier model for everything meant accepting a quality ceiling on the more nuanced writing tasks (the cover letter especially) in exchange for the pipeline being runnable end-to-end without a billing dependency. Each LLM node is also configured to retry up to 3 times on failure — a pragmatic guard against the rate-limiting and occasional instability that comes with free-tier API usage.
+      </div>
+
+      <p>The keyword-extraction step (LLM 1) is the cheapest, most deterministic task in the pipeline — strict comma-separated output, no creative writing — so it tolerates a smaller/faster model well. The resume and cover letter rewrites (LLM 2, LLM 3) are where model quality would matter most if this were scaled beyond a personal project.</p>
+    </div>
+
+    <!-- 06 IMPROVEMENTS -->
+    <div class="panel" id="panel-improvements">
+      <div class="panel-eyebrow">What I'd improve</div>
+      <h2>With better API access</h2>
+      <p>If this moved beyond a personal/portfolio project and I had budget for paid API access, here's what I'd change first:</p>
+
+      <div class="journey">
+        <div class="j-step">
+          <div class="j-num">1</div>
+          <div class="j-content">
+            <h3>Split models by task, not one model for all three</h3>
+            <p>I'd keep a fast/cheap model for the deterministic keyword-extraction step, but move the resume and cover letter rewrites to a stronger reasoning model — the writing quality gap matters most exactly where the task is least deterministic.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num">2</div>
+          <div class="j-content">
+            <h3>Add a structured ATS-score output, not just keywords</h3>
+            <p>Right now LLM 1 outputs a keyword list. With more headroom, I'd have it return a structured match score against the JD plus a gap list — so the user sees not just the tailored output but why it changed.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num">3</div>
+          <div class="j-content">
+            <h3>Add a verification pass</h3>
+            <p>A fourth LLM call (or a deterministic check) that diffs the rewritten resume against the original to confirm no dates, employers, or metrics were altered — turning the "don't fabricate" prompt rule into something I can actually verify, not just instruct.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 REFLECTIONS -->
+    <div class="panel" id="panel-reflections">
+      <div class="panel-eyebrow">Reflections</div>
+      <h2>What this taught me</h2>
+      <p>The most useful lesson wasn't about prompt-writing technique — it was about <strong>data routing</strong>. Deciding that LLM 3 should see the raw job description instead of the keyword list LLM 1 produced was a small architectural choice with an outsized effect on output quality: it's the difference between a cover letter that reads like a person and one that reads like a keyword list wearing a trench coat.</p>
+      <p>I'd also flag the anti-fabrication rules as the part of this project I'd defend hardest in an interview. It's tempting to let an LLM "fill gaps" to make a thin resume look stronger, and a less careful prompt would do exactly that. Writing explicit constraints against fabricating companies, dates, or metrics — and testing that the model actually honors them — felt like the real product work here, more than the formatting or UI.</p>
+      <p>The biggest open question I'd want real user data on: does a fully automated three-LLM pipeline actually produce a <em>better</em> tailored resume than a careful human editing pass with AI assistance, or does it just produce a faster one? I built this to find out hands-on what a multi-agent chain can and can't do well — and the honest answer right now is that it's very good at structure and keyword alignment, and still needs a human's judgment on what to emphasize.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="case-foot-nav">
+  <a href="case-01.html">
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Previous case
+  </a>
+  <a href="index.html">All cases</a>
+</div>
+
+<footer>
+  <span>Bengaluru · 2026</span>
+  <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+</footer>
+
+<script>
+  const navButtons = document.querySelectorAll('.side-nav button');
+  const panels = document.querySelectorAll('.panel');
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = btn.dataset.panel;
+      navButtons.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + target).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.case-body').offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
