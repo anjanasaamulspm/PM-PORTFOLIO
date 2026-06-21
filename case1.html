@@ -180,10 +180,11 @@
   .stat-card{
     background:var(--card); border:1px solid var(--line); border-radius:6px;
     padding:18px 16px; position:relative;
+    text-align:center;
   }
-  .stat-num{ font-family:'Spectral', serif; font-weight:700; font-size:1.9rem; color:var(--teal-deep); }
-  .stat-label{ font-size:0.78rem; color:var(--ink-soft); margin-top:4px; }
-  .stat-src{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; color:var(--mute); margin-top:8px; }
+  .stat-num{ font-family:'Spectral', serif; font-weight:700; font-size:1.9rem; color:var(--teal-deep); text-align:center; }
+  .stat-label{ font-size:0.78rem; color:var(--ink-soft); margin-top:4px; text-align:center; }
+  .stat-src{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; color:var(--mute); margin-top:8px; text-align:center; }
 
   .stat-img-wrap{
     width:100%;
@@ -322,7 +323,7 @@
     <div class="panel active" id="panel-problem">
       <div class="panel-eyebrow">The problem</div>
       <h2>Why users leave the app at checkout</h2>
-      <p>62% of online shoppers search for a coupon before completing a purchase. On mobile food-delivery apps, that search means leaving the checkout screen — opening a browser tab, searching for a code, and either returning empty-handed or not returning at all.</p>
+      <p><strong>62% of online shoppers search for a coupon before completing a purchase.</strong> On mobile food-delivery apps, that search means leaving the checkout screen — opening a browser tab, searching for a code, and either returning empty-handed or not returning at all.</p>
 
       <div class="stat-grid">
         <div class="stat-card">
@@ -343,37 +344,39 @@
       </div>
 
       <div class="mockup-frame">
-        <svg viewBox="0 0 520 220" width="520">
-          <rect width="520" height="220" rx="8" fill="#F6F3EC"/>
+        <svg viewBox="0 0 520 240" width="520">
+          <rect width="520" height="240" rx="8" fill="#F6F3EC"/>
           <!-- phone 1: app checkout -->
-          <rect x="20" y="20" width="160" height="180" rx="14" fill="#fff" stroke="#C9C2B2" stroke-width="2"/>
-          <rect x="34" y="38" width="132" height="10" rx="2" fill="#E2DDD1"/>
-          <rect x="34" y="56" width="90" height="8" rx="2" fill="#E2DDD1"/>
-          <rect x="34" y="76" width="132" height="36" rx="4" fill="#DCEAE9"/>
-          <rect x="34" y="120" width="132" height="22" rx="4" fill="#0E7C7B"/>
-          <text x="100" y="135" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#fff">PAY ₹486</text>
-          <text x="100" y="14" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3D453F">In-app checkout</text>
+          <rect x="20" y="30" width="150" height="180" rx="14" fill="#fff" stroke="#C9C2B2" stroke-width="2"/>
+          <rect x="32" y="48" width="126" height="10" rx="2" fill="#E2DDD1"/>
+          <rect x="32" y="66" width="86" height="8" rx="2" fill="#E2DDD1"/>
+          <rect x="32" y="86" width="126" height="36" rx="4" fill="#DCEAE9"/>
+          <rect x="32" y="130" width="126" height="22" rx="4" fill="#0E7C7B"/>
+          <text x="95" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#fff">PAY ₹486</text>
+          <text x="95" y="22" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3D453F">In-app checkout</text>
           <!-- arrow -->
-          <path d="M188 110 L230 110" stroke="#C4592F" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
-          <text x="209" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C4592F">leaves tab</text>
+          <path d="M178 120 L218 120" stroke="#C4592F" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <text x="198" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C4592F">leaves tab</text>
           <!-- phone 2: browser search -->
-          <rect x="238" y="20" width="160" height="180" rx="14" fill="#fff" stroke="#C9C2B2" stroke-width="2"/>
-          <rect x="252" y="38" width="132" height="14" rx="3" fill="#F3E0D5"/>
-          <text x="318" y="48" text-anchor="middle" font-family="Inter" font-size="7" fill="#C4592F">"swiggy coupon today"</text>
-          <rect x="252" y="62" width="132" height="8" rx="2" fill="#E2DDD1"/>
-          <rect x="252" y="76" width="100" height="8" rx="2" fill="#E2DDD1"/>
-          <rect x="252" y="92" width="132" height="8" rx="2" fill="#E2DDD1"/>
-          <rect x="252" y="106" width="80" height="8" rx="2" fill="#E2DDD1"/>
-          <text x="318" y="14" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3D453F">Off-app coupon hunt</text>
+          <rect x="226" y="30" width="150" height="180" rx="14" fill="#fff" stroke="#C9C2B2" stroke-width="2"/>
+          <rect x="238" y="50" width="126" height="16" rx="3" fill="#F3E0D5"/>
+          <text x="301" y="61" text-anchor="middle" font-family="Inter" font-size="6.5" fill="#C4592F">"swiggy coupon today"</text>
+          <rect x="238" y="76" width="126" height="8" rx="2" fill="#E2DDD1"/>
+          <rect x="238" y="90" width="96" height="8" rx="2" fill="#E2DDD1"/>
+          <rect x="238" y="104" width="126" height="8" rx="2" fill="#E2DDD1"/>
+          <rect x="238" y="118" width="76" height="8" rx="2" fill="#E2DDD1"/>
+          <text x="301" y="22" text-anchor="middle" font-family="Inter" font-size="10" font-weight="600" fill="#3D453F">Off-app coupon hunt</text>
           <!-- arrow 2 -->
-          <path d="M406 110 L448 110" stroke="#C4592F" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
-          <text x="427" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C4592F">70% of the time</text>
+          <path d="M384 120 L418 120" stroke="#C4592F" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <text x="401" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="7.5" fill="#C4592F">70% of</text>
+          <text x="401" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="7.5" fill="#C4592F">the time</text>
           <!-- result: abandon -->
-          <g transform="translate(456,80)">
+          <g transform="translate(434,90)">
             <circle cx="22" cy="22" r="22" fill="#F3E0D5"/>
             <path d="M14 14 L30 30 M30 14 L14 30" stroke="#C4592F" stroke-width="3" stroke-linecap="round"/>
           </g>
-          <text x="478" y="120" text-anchor="middle" font-family="Inter" font-size="8" fill="#3D453F">cart abandoned</text>
+          <text x="456" y="160" text-anchor="middle" font-family="Inter" font-size="8" fill="#3D453F">cart</text>
+          <text x="456" y="172" text-anchor="middle" font-family="Inter" font-size="8" fill="#3D453F">abandoned</text>
           <defs>
             <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
               <path d="M0,0 L8,4 L0,8 Z" fill="#C4592F"/>
@@ -383,7 +386,7 @@
       </div>
       <div class="mockup-caption">The detour: checkout → off-app coupon search → likely no working code → cart left behind</div>
 
-      <p>This isn't a niche behavior or a one-off frustration- it's become a default checkout ritual, and the app is structurally absent from the moment that decides whether the order completes.</p>
+      <p>This isn't a niche behavior or a one-off frustration- it's become a <strong>default checkout ritual</strong>, and the app is structurally absent from the moment that decides whether the order completes.</p>
 
       <div class="sources-block">
         <li>[1] DontPayFull, "Coupon Usage Statistics 2026"</li>
@@ -412,7 +415,7 @@
         "When I'm already checking out, I want to know if spending a little more unlocks a better deal, so I can decide whether it's worth it before I pay."
       </div>
 
-      <p>What's notable: none of these three jobs are actually being done well by a static "Apply Coupon" text field. A blank input box assumes the user already knows a code exists — it doesn't surface anything, it just waits. The QR-code concept is one candidate answer to all three jobs at once: something visible and specific at the exact moment the job activates, instead of a passive field that only rewards people who already left to go searching.</p>
+      <p>What's notable: <strong>none of these three jobs are actually being done well by a static "Apply Coupon" text field.</strong> A blank input box assumes the user already knows a code exists — it doesn't surface anything, it just waits. The QR-code concept is one candidate answer to all three jobs at once: something visible and specific at the exact moment the job activates, instead of a passive field that only rewards people who already left to go searching.</p>
 
       <div class="mockup-frame">
         <svg viewBox="0 0 520 200" width="520">
@@ -488,7 +491,7 @@
     <div class="panel" id="panel-prioritization">
       <div class="panel-eyebrow">Prioritization</div>
       <h2>What I'd build first, and why</h2>
-      <p>I scored three candidate responses to this problem using RICE. The QR-code-at-checkout concept isn't the only fix- a smarter "Apply Coupon" autofill or a pre-checkout deals banner are both lower-effort alternatives — but it scored highest because it's the only one that addresses <em>discovery</em> (the user doesn't know a deal exists) rather than just <em>friction</em> (the user knows a code exists but it's annoying to enter).</p>
+      <p>I scored three candidate responses to this problem using RICE. The QR-code-at-checkout concept isn't the only fix- a smarter "Apply Coupon" autofill or a pre-checkout deals banner are both lower-effort alternatives — but it scored highest because it's the only one that addresses <strong>discovery</strong> (the user doesn't know a deal exists) rather than just <strong>friction</strong> (the user knows a code exists but it's annoying to enter).</p>
 
       <table class="rice-table">
         <thead>
@@ -503,8 +506,8 @@
       <p style="font-size:0.8rem; color:var(--mute); margin-top:-10px;">*Higher raw RICE scores for the lower-effort options- see note below on why I'd still sequence the QR concept first.</p>
 
       <div class="callout">
-        <b>Why not just ship the highest RICE score</b>
-        The banner and autofill ideas score well because they're cheap, not because they solve the deeper problem. They reduce friction for users who already know to look for a deal- they don't change the 62% who currently leave the app to search. I'd treat them as quick wins to ship in parallel, and the QR concept as the bet that actually closes the discovery gap, sequenced as an MVP test on one high-traffic order flow before wider rollout.
+        <b style="font-weight:800;">Why not just ship the highest RICE score</b>
+        The banner and autofill ideas score well because they're cheap, not because they solve the deeper problem. They reduce friction for users who already know to look for a deal- they don't change the <strong>62% who currently leave the app to search</strong>. I'd treat them as quick wins to ship in parallel, and the QR concept as the bet that actually closes the discovery gap, sequenced as an MVP test on one high-traffic order flow before wider rollout.
       </div>
 
       <p><strong>MVP scope:</strong> a single static QR per order that reveals one offer, tested on dinner-hour orders in one city, measuring completion-rate lift against a held-out control group- before investing in dynamic, order-aware offer logic.</p>
@@ -567,7 +570,7 @@
       <div class="mockup-caption">Proposed checkout screen- QR offer reveal above the pay button</div>
 
       <div class="callout">
-        <b>PR/FAQ- if this shipped</b>
+        <b style="font-weight:800;">PR/FAQ- if this shipped</b>
         "Starting today, your checkout screen shows a deal made for this order- scan it, tap it, done. No searching, no separate tab, no expired codes. Just open the app, order, and see what you've unlocked before you pay."
       </div>
 
@@ -582,34 +585,40 @@
       <div class="stat-grid">
 
         <div class="stat-card">
-          <div class="stat-img-wrap">
-            <img src="qr-metrics-1.png" alt="Checkout completion rate illustration" class="stat-img"/>
-          </div>
-          <div class="stat-label">Checkout completion rate, QR-shown vs. control</div>
+          <div class="stat-img-wrap" id="metric-icon-1"></div>
+          <div class="stat-label"><strong>Checkout completion rate</strong>, QR-shown vs. control</div>
           <div class="stat-src">North star</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-img-wrap">
-            <img src="qr-metrics-2.png" alt="Off-app exits during checkout illustration" class="stat-img"/>
-          </div>
-          <div class="stat-label">Off-app exits during checkout (tab switches / app backgrounding)</div>
+          <div class="stat-img-wrap" id="metric-icon-2"></div>
+          <div class="stat-label"><strong>Off-app exits</strong> during checkout (tab switches / app backgrounding)</div>
           <div class="stat-src">Leading indicator</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-img-wrap">
-            <img src="qr-metrics-3.png" alt="Average discount cost per completed order illustration" class="stat-img"/>
-          </div>
-          <div class="stat-label">Average discount cost per completed order</div>
+          <div class="stat-img-wrap" id="metric-icon-3"></div>
+          <div class="stat-label"><strong>Average discount cost</strong> per completed order</div>
           <div class="stat-src">Counter-metric / guardrail</div>
         </div>
 
       </div>
-      <p>The counter-metric matters most here: it's easy to lift completion rate by simply giving away large discounts. The real test of this concept is whether it lifts completion <em>without</em> increasing average discount depth beyond what the team would already budget for promotions- i.e., is it making existing offers more effective, not just making offers bigger.</p>
+      <p>The counter-metric matters most here: <strong>it's easy to lift completion rate by simply giving away large discounts.</strong> The real test of this concept is whether it lifts completion <em>without</em> increasing average discount depth beyond what the team would already budget for promotions- i.e., is it making existing offers more effective, not just making offers bigger.</p>
+
       <div class="callout">
-        <b>30 / 90 / 365-day view</b>
-        At 30 days: does the QR-shown cohort complete checkout at a meaningfully higher rate than control, holding order value constant? At 90 days: does that lift hold once the novelty of "a QR code at checkout" wears off, or does it decay toward baseline? At 365 days: has it changed user behavior upstream- fewer users opening a second tab at all, because they've learned the deal will show up in-app?
+        <b style="font-weight:800;">30 / 90 / 365-day view</b>
+        <div style="margin-top:10px;">
+          <strong style="display:block; margin-bottom:4px;">At 30 days</strong>
+          <span>Does the QR-shown cohort complete checkout at a meaningfully higher rate than control, holding order value constant?</span>
+        </div>
+        <div style="margin-top:14px;">
+          <strong style="display:block; margin-bottom:4px;">At 90 days</strong>
+          <span>Does that lift hold once the novelty of "a QR code at checkout" wears off, or does it decay toward baseline?</span>
+        </div>
+        <div style="margin-top:14px;">
+          <strong style="display:block; margin-bottom:4px;">At 365 days</strong>
+          <span>Has it changed user behavior upstream- fewer users opening a second tab at all, because they've learned the deal will show up in-app?</span>
+        </div>
       </div>
     </div>
 
@@ -617,9 +626,9 @@
     <div class="panel" id="panel-reflections">
       <div class="panel-eyebrow">Reflections</div>
       <h2>What I'd do differently</h2>
-      <p>The biggest assumption I'm making is that a QR code is the right interaction at all- for a user already on their phone, a tap is strictly less friction than a scan, and I've kept QR mostly because it ports cleanly to a desktop checkout flow too. I'd want to validate with real users whether the "scan something on the same screen you're looking at" interaction actually feels delightful or just feels redundant on mobile.</p>
-      <p>I'd also want real data on how much of the 62% coupon-searching behavior is price-driven versus habit-driven- if it's mostly habit, a visible in-app offer might convert it easily; if it's mostly genuine price comparison against competitor apps, no amount of in-app convenience fixes that, and the real lever is the offer's actual value, not its discoverability.</p>
-      <p>The biggest risk is discount cannibalization- surfacing an offer to users who would have checked out at full price anyway. I'd mitigate this by only showing the QR reveal to sessions that show early signals of detour risk (e.g., have previously abandoned a cart, or are new users), rather than to every checkout by default.</p>
+      <p>The biggest assumption I'm making is that a QR code is the right interaction at all- for a user already on their phone, <strong>a tap is strictly less friction than a scan</strong>, and I've kept QR mostly because it ports cleanly to a desktop checkout flow too. I'd want to validate with real users whether the "scan something on the same screen you're looking at" interaction actually feels delightful or just feels redundant on mobile.</p>
+      <p>I'd also want real data on how much of the 62% coupon-searching behavior is price-driven versus habit-driven- if it's mostly habit, a visible in-app offer might convert it easily; if it's mostly genuine price comparison against competitor apps, <strong>no amount of in-app convenience fixes that</strong>, and the real lever is the offer's actual value, not its discoverability.</p>
+      <p>The biggest risk is <strong>discount cannibalization</strong>- surfacing an offer to users who would have checked out at full price anyway. I'd mitigate this by only showing the QR reveal to sessions that show early signals of detour risk (e.g., have previously abandoned a cart, or are new users), rather than to every checkout by default.</p>
     </div>
 
   </div>
@@ -654,6 +663,48 @@
       document.getElementById('panel-' + target).classList.add('active');
       window.scrollTo({ top: document.querySelector('.case-body').offsetTop - 90, behavior: 'smooth' });
     });
+  });
+
+  // Inline SVG icons for the success metrics cards (replaces placeholder images)
+  const metricIcons = {
+    'metric-icon-1': `
+      <svg viewBox="0 0 200 112" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+        <rect width="200" height="112" fill="#DCEAE9"/>
+        <line x1="20" y1="90" x2="184" y2="90" stroke="#0E7C7B" stroke-width="2" opacity="0.4"/>
+        <polyline points="20,78 55,66 90,70 125,42 160,30 184,18" fill="none" stroke="#095C5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="184" cy="18" r="5" fill="#0E7C7B"/>
+        <circle cx="20" cy="78" r="4" fill="#3D453F" opacity="0.4"/>
+        <path d="M160,30 L184,18 L184,30 Z" fill="#0E7C7B" opacity="0.25"/>
+      </svg>`,
+    'metric-icon-2': `
+      <svg viewBox="0 0 200 112" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+        <rect width="200" height="112" fill="#F3E0D5"/>
+        <rect x="36" y="26" width="44" height="64" rx="8" fill="#fff" stroke="#C4592F" stroke-width="2.5"/>
+        <rect x="46" y="38" width="24" height="34" rx="2" fill="#F3E0D5"/>
+        <g transform="translate(118,26)">
+          <rect width="44" height="64" rx="8" fill="#fff" stroke="#C4592F" stroke-width="2.5" stroke-dasharray="4 3" opacity="0.7"/>
+        </g>
+        <path d="M82,56 L114,56" stroke="#C4592F" stroke-width="2.5" stroke-linecap="round" marker-end="url(#mi2arrow)"/>
+        <defs>
+          <marker id="mi2arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#C4592F"/>
+          </marker>
+        </defs>
+      </svg>`,
+    'metric-icon-3': `
+      <svg viewBox="0 0 200 112" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+        <rect width="200" height="112" fill="#ECE8DF"/>
+        <g transform="translate(100,56)">
+          <circle r="34" fill="none" stroke="#C9C2B2" stroke-width="10"/>
+          <path d="M0,-34 A34,34 0 0 1 29.4,17" fill="none" stroke="#0E7C7B" stroke-width="10" stroke-linecap="round"/>
+          <text x="0" y="6" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700" fill="#1F2421">₹</text>
+        </g>
+        <text x="100" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8A8579">avg / order</text>
+      </svg>`
+  };
+  Object.entries(metricIcons).forEach(([id, svg]) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = svg;
   });
 </script>
 
