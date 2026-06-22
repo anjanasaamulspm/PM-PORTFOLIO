@@ -14,8 +14,8 @@
     --card-2:  #272727;
     --line:    #333333;
     --white:   #F0F0F0;
-    --soft:    #999999;
-    --mute:    #555555;
+    --soft:    #C8C8C8;
+    --mute:    #A0A0A0;
     --lime:    #C8F73E;
     --lime-dim:rgba(200,247,62,0.12);
     --lime-mid:rgba(200,247,62,0.22);
@@ -38,7 +38,6 @@
   a{ color:inherit; text-decoration:none; }
   :focus-visible{ outline:2px solid var(--lime); outline-offset:2px; }
 
-  /* ===== Header ===== */
   header{
     display:flex; justify-content:space-between; align-items:center;
     padding:26px clamp(20px,5vw,64px) 16px;
@@ -60,7 +59,6 @@
   .back-link{ display:flex; align-items:center; gap:6px; }
   .back-link svg{ width:13px; height:13px; }
 
-  /* ===== Hero ===== */
   .case-hero{
     padding:clamp(40px,7vw,80px) clamp(20px,5vw,64px) 0;
     max-width:1100px;
@@ -96,7 +94,6 @@
     color:var(--soft); background:var(--card);
   }
 
-  /* ===== Scoreboard ticker ===== */
   .scoreboard{
     display:grid; grid-template-columns:repeat(3,1fr);
     border:1px solid var(--line); border-radius:4px;
@@ -123,35 +120,45 @@
   .score-cell.red .score-val{ color:var(--red); }
   .score-cell.amber .score-val{ color:var(--amber); }
   .score-label{ font-size:0.76rem; color:var(--soft); margin-top:8px; display:block; }
-  .score-sub{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; color:var(--mute); margin-top:4px; }
+  .score-sub{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; color:#AAAAAA; margin-top:4px; }
 
-  /* ===== Layout ===== */
   .case-body{
     display:grid; grid-template-columns:220px 1fr; gap:48px;
     max-width:1100px; margin:0 auto;
     padding:48px clamp(20px,5vw,64px) 100px; align-items:start;
   }
+
+  /* ===== FIXED: Side nav — step numbers clearly visible ===== */
   .side-nav{ position:sticky; top:88px; display:flex; flex-direction:column; gap:2px; border-left:2px solid var(--line); }
   .side-nav button{
-    all:unset; cursor:pointer; font-size:0.82rem; font-weight:600; color:var(--mute);
+    all:unset; cursor:pointer; font-size:0.82rem; font-weight:600; color:#888888;
     padding:9px 0 9px 18px; border-left:2px solid transparent; margin-left:-2px;
     transition:color .18s, border-color .18s;
+    display:flex; align-items:center; gap:0;
   }
   .side-nav button:hover{ color:var(--white); }
   .side-nav button.active{ color:var(--lime); border-left:2px solid var(--lime); }
-  .side-nav .step-no{ font-family:'JetBrains Mono', monospace; font-size:0.66rem; margin-right:8px; color:var(--mute); }
-  .side-nav button.active .step-no{ color:var(--red); }
+  .side-nav .step-no{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; font-weight:700;
+    margin-right:8px; color:#BBBBBB; /* visibly light grey */
+    background:rgba(255,255,255,0.08);
+    padding:1px 5px; border-radius:2px;
+  }
+  .side-nav button.active .step-no{
+    color:var(--black);
+    background:var(--red);
+  }
+  .side-nav button.active{ color:var(--lime); }
 
   .panels{ min-width:0; }
   .panel{ display:none; animation:fadeIn .2s ease; }
   .panel.active{ display:block; }
   @keyframes fadeIn{ from{opacity:0;transform:translateY(5px);} to{opacity:1;transform:translateY(0);} }
 
-  /* ===== Panel typography ===== */
   .verdict-row{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
   .verdict-label{
     font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700;
-    text-transform:uppercase; letter-spacing:0.1em; color:var(--mute);
+    text-transform:uppercase; letter-spacing:0.1em; color:#AAAAAA;
   }
   .verdict-score{
     font-family:'JetBrains Mono', monospace; font-weight:700; font-size:1rem;
@@ -169,7 +176,6 @@
   .panel strong{ color:var(--white); font-weight:700; }
   .panel em{ color:var(--lime); font-style:normal; font-weight:600; }
 
-  /* ===== Match finding cards ===== */
   .finding-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:22px 0; }
   .finding-card{
     background:var(--card); border:1px solid var(--line); border-radius:4px;
@@ -181,7 +187,6 @@
   .finding-title{ font-weight:700; font-size:0.88rem; color:var(--white); margin-bottom:6px; }
   .finding-body{ font-size:0.8rem; color:var(--soft); line-height:1.6; }
 
-  /* ===== Evidence block (your personal observation) ===== */
   .evidence{
     background:var(--red-dim); border:1px solid var(--red);
     border-radius:4px; padding:18px 18px; margin:20px 0;
@@ -191,12 +196,9 @@
     text-transform:uppercase; letter-spacing:0.08em; color:var(--red); margin-bottom:8px; display:block;
   }
   .evidence p{ color:var(--white); font-size:0.88rem; margin-bottom:0; }
-  .evidence-streak{
-    background:var(--amber-dim); border-color:var(--amber);
-  }
+  .evidence-streak{ background:var(--amber-dim); border-color:var(--amber); }
   .evidence-streak .evidence-label{ color:var(--amber); }
 
-  /* ===== Callout ===== */
   .callout{
     background:var(--lime-dim); border-left:3px solid var(--lime);
     padding:16px 18px; border-radius:2px; font-size:0.88rem;
@@ -211,7 +213,17 @@
   .callout.amber{ background:var(--amber-dim); border-left-color:var(--amber); }
   .callout.amber b{ color:var(--amber); }
 
-  /* ===== Recommendation blocks ===== */
+  /* ===== Mockup frames for fix illustrations ===== */
+  .mockup-frame{
+    background:#2A2A2A; border:1px solid #444444; border-radius:8px;
+    padding:20px; margin:22px 0; display:flex; justify-content:center; overflow-x:auto;
+  }
+  .mockup-frame svg{ max-width:100%; height:auto; }
+  .mockup-caption{
+    text-align:center; font-family:'JetBrains Mono', monospace; font-size:0.68rem;
+    color:#AAAAAA; margin-top:10px; letter-spacing:0.04em;
+  }
+
   .rec-block{
     background:var(--card); border:1px solid var(--line); border-radius:4px;
     padding:24px 22px; margin:22px 0; position:relative;
@@ -232,18 +244,16 @@
   }
   .rec-metric span{ color:var(--lime); font-weight:600; }
 
-  /* ===== Stat grid ===== */
   .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin:20px 0; }
   .stat-card{ background:var(--card); border:1px solid var(--line); border-radius:4px; padding:16px 14px; }
   .stat-num{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:1.6rem; color:var(--lime); }
   .stat-label{ font-size:0.72rem; color:var(--soft); margin-top:4px; line-height:1.4; }
-  .stat-src{ font-family:'JetBrains Mono', monospace; font-size:0.6rem; color:var(--mute); margin-top:6px; }
+  .stat-src{ font-family:'JetBrains Mono', monospace; font-size:0.6rem; color:#AAAAAA; margin-top:6px; }
 
-  /* ===== Hook model / AARRR table ===== */
   .framework-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:0.84rem; }
   .framework-table th{
     font-family:'JetBrains Mono', monospace; font-size:0.66rem; text-transform:uppercase;
-    letter-spacing:0.05em; color:var(--mute); text-align:left; padding:8px 12px;
+    letter-spacing:0.05em; color:#AAAAAA; text-align:left; padding:8px 12px;
     border-bottom:1.5px solid var(--lime);
   }
   .framework-table td{ padding:10px 12px; border-bottom:1px solid var(--line); color:var(--soft); vertical-align:top; }
@@ -251,7 +261,6 @@
   .framework-table .highlight td{ color:var(--white); background:var(--red-dim); }
   .framework-table .highlight td:first-child{ color:var(--red); }
 
-  /* ===== Journey steps ===== */
   .journey{ display:flex; flex-direction:column; margin:22px 0; }
   .j-step{ display:grid; grid-template-columns:34px 1fr; gap:14px; padding-bottom:22px; position:relative; }
   .j-step:not(:last-child)::before{ content:""; position:absolute; left:16px; top:32px; bottom:0; width:1px; background:var(--line); }
@@ -264,10 +273,9 @@
   .j-content h3{ font-weight:700; font-size:0.92rem; color:#fff; margin-bottom:4px; }
   .j-content p{ font-size:0.82rem; color:var(--soft); margin-bottom:0; }
 
-  .sources-block{ margin-top:24px; padding-top:14px; border-top:1px dashed var(--line); font-size:0.7rem; color:var(--mute); font-family:'JetBrains Mono', monospace; line-height:1.8; }
+  .sources-block{ margin-top:24px; padding-top:14px; border-top:1px dashed var(--line); font-size:0.7rem; color:#AAAAAA; font-family:'JetBrains Mono', monospace; line-height:1.8; }
   .sources-block li{ list-style:none; margin-bottom:2px; }
 
-  /* ===== Footer nav ===== */
   .case-foot-nav{
     display:flex; justify-content:space-between; align-items:center;
     max-width:1100px; margin:0 auto; padding:26px clamp(20px,5vw,64px) 60px;
@@ -278,7 +286,7 @@
 
   footer{
     border-top:1px solid var(--line); padding:22px clamp(20px,5vw,64px) 36px;
-    display:flex; justify-content:space-between; font-size:0.76rem; color:var(--mute); flex-wrap:wrap; gap:10px;
+    display:flex; justify-content:space-between; font-size:0.76rem; color:#AAAAAA; flex-wrap:wrap; gap:10px;
   }
 
   @media(max-width:860px){
@@ -311,8 +319,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       All cases
     </a>
-    <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a href="mailto:youremail@example.com">Contact</a>
+    <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:anjanasa066@gmail.com">Contact</a>
   </nav>
 </header>
 
@@ -333,7 +341,6 @@
   </div>
 </section>
 
-<!-- Scoreboard ticker -->
 <div style="max-width:1100px; padding:0 clamp(20px,5vw,64px);">
   <div class="scoreboard">
     <div class="score-cell lime">
@@ -480,7 +487,7 @@
         <span class="verdict-score bad">Score: 4 / 10</span>
       </div>
       <h2>Three things that are actively eroding the experience</h2>
-      <p>The core loop works. The problems are all trust and fairness issues — and in a competitive product, trust is the product. If the leaderboard is fake, the ELO means nothing. If exits aren't penalised, winning a duel means nothing. These aren't cosmetic bugs; they threaten retention of exactly the high-skill users Matiks most needs to keep.</p>
+      <p>The core loop works. The problems are all <strong>trust and fairness issues</strong> — and in a competitive product, trust is the product. If the leaderboard is fake, the ELO means nothing. If exits aren't penalised, winning a duel means nothing. These aren't cosmetic bugs; they threaten retention of exactly the high-skill users Matiks most needs to keep.</p>
 
       <div class="evidence">
         <span class="evidence-label">🔍 Personal observation — leaderboard integrity</span>
@@ -526,16 +533,81 @@
         <div class="rec-title">Impossible scores are visible with no flag. Mid-game exits have no real cost.</div>
         <div class="rec-why">Both are trust problems. A player who sees an 80-question-in-1:47 score on a public leaderboard doesn't think "that person is amazing" — they think "this game is rigged." Once that thought lands, the competitive motivation that makes Matiks work collapses. The same logic applies to exits: if quitting a duel you're losing costs nothing, every close match becomes a lottery on whether your opponent feels like finishing.</div>
         <div class="rec-what">
-          <strong>What I'd ship first — statistical anomaly flagging:</strong> Set a per-question speed threshold for each game mode (e.g. DMAS at the 99th percentile of all verified human scores). Any contest submission that exceeds this threshold gets auto-flagged and held from the live leaderboard until a lightweight review triggers. This doesn't require a full anti-cheat system — it's a <strong>simple statistical filter on the output side</strong>, not real-time surveillance.
+          <strong>What I'd ship first — statistical anomaly flagging:</strong> Set a per-question speed threshold for each game mode (e.g. DMAS at the 99th percentile of all verified human scores). Any contest submission that exceeds this threshold gets auto-flagged and held from the live leaderboard until a lightweight review triggers. This is a <strong>simple statistical filter on the output side</strong>, not real-time surveillance.
           <br><br>
-          <strong>Exit penalty redesign:</strong> A player who exits mid-duel should receive: (1) an immediate ELO loss equal to a full loss, (2) a short cooldown before their next match (60–90 seconds), and (3) a "forfeit" marker on their recent match history visible to them. None of these require real-time detection — they're applied at session-end when an exit is confirmed. The cooldown alone is enough to make rage-quitting feel costly without being punitive to genuine disconnects.
+          <strong>Exit penalty redesign:</strong> A player who exits mid-duel should receive: (1) an immediate ELO loss equal to a full loss, (2) a 60–90 second cooldown before next match, and (3) a "forfeit" marker on their recent match history visible to them. The cooldown alone is enough to make rage-quitting feel costly without being punitive to genuine disconnects.
         </div>
         <div class="rec-metric">North star metric: <span>% of top-50 leaderboard scores that pass anomaly threshold</span> · target: 95%+ within 60 days of shipping</div>
       </div>
 
+      <!-- FIX 1 MOCKUP: Flagged leaderboard + exit penalty UI -->
+      <div class="mockup-frame">
+        <svg viewBox="0 0 640 300" width="600" style="min-width:500px;">
+          <!-- BG -->
+          <rect width="640" height="300" rx="10" fill="#2C2C2C"/>
+
+          <!-- LEFT: Leaderboard with flagged score -->
+          <text x="20" y="26" font-family="JetBrains Mono" font-size="9" fill="#BBBBBB" letter-spacing="1">LEADERBOARD — SPRINT DUELS</text>
+          <!-- Row 1 normal -->
+          <rect x="16" y="36" width="280" height="38" rx="4" fill="#3A3A3A"/>
+          <text x="30" y="52" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#C8F73E">#1</text>
+          <text x="54" y="52" font-family="Inter" font-size="10" font-weight="600" fill="#F0F0F0">prakash_91</text>
+          <text x="240" y="52" font-family="JetBrains Mono" font-size="10" fill="#C8F73E">72 Qs</text>
+          <text x="30" y="66" font-family="JetBrains Mono" font-size="8" fill="#AAAAAA">2 min 04 sec</text>
+          <!-- Row 2 flagged -->
+          <rect x="16" y="80" width="280" height="48" rx="4" fill="#3A2020" stroke="#FF3B3B" stroke-width="1.5"/>
+          <text x="30" y="96" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#DDDDDD">#2</text>
+          <text x="54" y="96" font-family="Inter" font-size="10" font-weight="600" fill="#F0F0F0">speed_x99</text>
+          <text x="240" y="96" font-family="JetBrains Mono" font-size="10" fill="#FF3B3B">80 Qs</text>
+          <!-- flag badge -->
+          <rect x="16" y="104" width="120" height="16" rx="3" fill="rgba(255,59,59,0.2)" stroke="#FF3B3B" stroke-width="0.8"/>
+          <text x="24" y="116" font-family="JetBrains Mono" font-size="7.5" fill="#FF3B3B">⚑ UNDER REVIEW · 1:47</text>
+          <!-- Row 3 normal -->
+          <rect x="16" y="134" width="280" height="38" rx="4" fill="#3A3A3A"/>
+          <text x="30" y="150" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#CCCCCC">#3</text>
+          <text x="54" y="150" font-family="Inter" font-size="10" font-weight="600" fill="#F0F0F0">anjana_s</text>
+          <text x="240" y="150" font-family="JetBrains Mono" font-size="10" fill="#C8F73E">68 Qs</text>
+          <text x="30" y="164" font-family="JetBrains Mono" font-size="8" fill="#BBBBBB">2 min 12 sec</text>
+          <!-- Row 4 -->
+          <rect x="16" y="178" width="280" height="38" rx="4" fill="#3A3A3A"/>
+          <text x="30" y="194" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#CCCCCC">#4</text>
+          <text x="54" y="194" font-family="Inter" font-size="10" font-weight="600" fill="#F0F0F0">mathwiz_k</text>
+          <text x="240" y="194" font-family="JetBrains Mono" font-size="10" fill="#C8F73E">65 Qs</text>
+          <text x="30" y="208" font-family="JetBrains Mono" font-size="8" fill="#BBBBBB">2 min 31 sec</text>
+
+          <!-- Divider -->
+          <line x1="316" y1="36" x2="316" y2="270" stroke="#4A4A4A" stroke-width="1"/>
+
+          <!-- RIGHT: Exit penalty modal -->
+          <text x="336" y="26" font-family="JetBrains Mono" font-size="9" fill="#BBBBBB" letter-spacing="1">EXIT PENALTY — PROPOSED UI</text>
+          <rect x="332" y="36" width="292" height="228" rx="8" fill="#363636" stroke="#555" stroke-width="1"/>
+          <!-- header bar -->
+          <rect x="332" y="36" width="292" height="36" rx="8" fill="#FF3B3B"/>
+          <rect x="332" y="54" width="292" height="18" rx="0" fill="#FF3B3B"/>
+          <text x="478" y="59" text-anchor="middle" font-family="Inter" font-size="11" font-weight="800" fill="#fff">YOU FORFEITED</text>
+          <!-- icon -->
+          <circle cx="478" cy="112" r="30" fill="rgba(255,59,59,0.15)" stroke="#FF3B3B" stroke-width="1.5"/>
+          <text x="478" y="119" text-anchor="middle" font-family="Inter" font-size="26">🏳️</text>
+          <!-- penalty details -->
+          <rect x="352" y="152" width="252" height="24" rx="4" fill="#3D2020" stroke="#FF3B3B" stroke-width="0.8"/>
+          <text x="478" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#FF6B6B">ELO  −18  ·  MATCH RECORDED AS LOSS</text>
+          <!-- cooldown bar -->
+          <rect x="352" y="184" width="252" height="36" rx="4" fill="#3A3A3A"/>
+          <text x="365" y="198" font-family="JetBrains Mono" font-size="8" fill="#CCCCCC">NEXT MATCH AVAILABLE IN</text>
+          <text x="365" y="212" font-family="JetBrains Mono" font-size="16" font-weight="700" fill="#FFB800">0:47</text>
+          <!-- progress bar -->
+          <rect x="352" y="226" width="252" height="6" rx="3" fill="#333"/>
+          <rect x="352" y="226" width="160" height="6" rx="3" fill="#FFB800"/>
+          <!-- ok button -->
+          <rect x="372" y="240" width="212" height="16" rx="3" fill="#3C3C3C"/>
+          <text x="478" y="252" text-anchor="middle" font-family="Inter" font-size="9" font-weight="600" fill="#BBBBBB">FORFEIT ADDED TO MATCH HISTORY</text>
+        </svg>
+      </div>
+      <div class="mockup-caption">Left: flagged impossible score held from live leaderboard · Right: proposed exit penalty flow with ELO deduction + cooldown timer</div>
+
       <div class="callout red">
         <b>Why this is the highest priority</b>
-        The users most damaged by fake leaderboards are the highest-skill users — the ones who would become Matiks' most vocal advocates if the competitive integrity were real. Matiks cannot build a mind-sport brand on a foundation that serious players don't trust. Fix this before spending on marketing or new features.
+        The users most damaged by fake leaderboards are the highest-skill users — the ones who would become Matiks' most vocal advocates if the competitive integrity were real. Matiks cannot build a mind-sport brand on a foundation that serious players don't trust. <strong>Fix this before spending on marketing or new features.</strong>
       </div>
     </div>
 
@@ -547,13 +619,13 @@
       </div>
       <h2>Fix the onboarding drop-off for non-DMAS game modes</h2>
 
-      <p>The speed-to-first-duel is a genuine strength for DMAS (basic arithmetic). But Matiks has several other modes — CrossMath, KenKen, Anzan — that users bounce off because the app gives a few bullet points and drops them into a live match before they understand what they're even trying to do.</p>
+      <p>The speed-to-first-duel is a genuine strength for DMAS (basic arithmetic). But Matiks has several other modes — CrossMath, KenKen, Flash Anzan, Mind Snap — that users bounce off because the app gives a few bullet points and drops them into a live match before they understand what they're even trying to do.</p>
 
       <div class="journey">
         <div class="j-step">
           <div class="j-num red">✗</div>
           <div class="j-content">
-            <h3>Current flow for Anzan / complex modes</h3>
+            <h3>Current flow for complex modes</h3>
             <p>3–4 bullet-point explanation → immediately paired with an opponent → confusing mid-match experience → player loses, feels stupid, exits the mode permanently.</p>
           </div>
         </div>
@@ -567,21 +639,82 @@
         <div class="j-step">
           <div class="j-num">→</div>
           <div class="j-content">
-            <h3>Home screen declutter — "Start Here" path</h3>
-            <p>The home screen currently shows everything at once. For new users (first 3 sessions), pin one featured mode per day — the one with the most active players or the best matchmaking pool — so the first decision is made for them, not left open.</p>
+            <h3>Home screen — "Start Here" path for new users</h3>
+            <p>The home screen currently shows everything at once. For new users (first 3 sessions), pin one featured mode per day — the one with the most active players — so the first decision is made for them, not left open.</p>
           </div>
         </div>
       </div>
 
+      <!-- FIX 2 MOCKUP: Practice round gate screen -->
+      <div class="mockup-frame">
+        <svg viewBox="0 0 640 310" width="600" style="min-width:500px;">
+          <rect width="640" height="310" rx="10" fill="#2C2C2C"/>
+
+          <!-- LEFT: Current broken flow -->
+          <text x="20" y="26" font-family="JetBrains Mono" font-size="9" fill="#FF3B3B" letter-spacing="1">CURRENT — MODE ENTRY (BROKEN)</text>
+          <!-- mode card -->
+          <rect x="16" y="36" width="280" height="80" rx="6" fill="#3A3A3A" stroke="#333"/>
+          <rect x="16" y="36" width="280" height="4" rx="2" fill="#FF8A65"/>
+          <text x="30" y="58" font-family="JetBrains Mono" font-size="8" fill="#FF8A65">PUZZLE</text>
+          <text x="30" y="78" font-family="Inter" font-size="16" font-weight="900" fill="#fff">CROSS MATH</text>
+          <text x="30" y="96" font-family="Inter" font-size="16" font-weight="900" fill="#fff">DUELS</text>
+          <text x="30" y="110" font-family="Inter" font-size="8" fill="#BBBBBB">OUTSOLVE YOUR RIVAL, FILL THE GRID.</text>
+          <!-- how to play screen -->
+          <rect x="16" y="128" width="280" height="80" rx="6" fill="#1A1A1A" stroke="#333"/>
+          <text x="30" y="148" font-family="Inter" font-size="10" font-weight="700" fill="#CCCCCC">HOW TO PLAY</text>
+          <text x="30" y="164" font-family="Inter" font-size="8" fill="#BBBBBB">• Fill a 3×3 grid using math operators</text>
+          <text x="30" y="178" font-family="Inter" font-size="8" fill="#BBBBBB">• First to complete wins</text>
+          <text x="30" y="192" font-family="Inter" font-size="8" fill="#BBBBBB">• 90 second time limit</text>
+          <!-- big play button -->
+          <rect x="16" y="220" width="280" height="40" rx="6" fill="#C8F73E"/>
+          <text x="156" y="246" text-anchor="middle" font-family="Inter" font-size="13" font-weight="900" fill="#000">FIND OPPONENT  ▶</text>
+          <!-- X marker -->
+          <circle cx="296" cy="168" r="16" fill="#FF3B3B" opacity="0.15"/>
+          <text x="296" y="174" text-anchor="middle" font-family="Inter" font-size="18" fill="#FF3B3B">✗</text>
+          <text x="296" y="194" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#FF3B3B">NO PRACTICE</text>
+          <text x="296" y="205" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#FF3B3B">DROPS IN LIVE</text>
+
+          <!-- Divider -->
+          <line x1="316" y1="36" x2="316" y2="280" stroke="#4A4A4A" stroke-width="1"/>
+
+          <!-- RIGHT: Proposed practice gate -->
+          <text x="336" y="26" font-family="JetBrains Mono" font-size="9" fill="#C8F73E" letter-spacing="1">PROPOSED — PRACTICE GATE</text>
+          <!-- mode entry with practice option -->
+          <rect x="332" y="36" width="292" height="80" rx="6" fill="#3A3A3A" stroke="#333"/>
+          <rect x="332" y="36" width="292" height="4" rx="2" fill="#C8F73E"/>
+          <text x="346" y="58" font-family="JetBrains Mono" font-size="8" fill="#C8F73E">PUZZLE · RATING: 1035</text>
+          <text x="346" y="78" font-family="Inter" font-size="16" font-weight="900" fill="#fff">CROSS MATH</text>
+          <text x="346" y="96" font-family="Inter" font-size="16" font-weight="900" fill="#fff">DUELS</text>
+          <text x="346" y="110" font-family="Inter" font-size="8" fill="#BBBBBB">OUTSOLVE YOUR RIVAL, FILL THE GRID.</text>
+          <!-- practice first banner -->
+          <rect x="332" y="128" width="292" height="52" rx="6" fill="rgba(200,247,62,0.08)" stroke="#C8F73E" stroke-width="1"/>
+          <text x="346" y="148" font-family="JetBrains Mono" font-size="8" fill="#C8F73E">🎯  FIRST TIME PLAYING THIS MODE?</text>
+          <text x="346" y="164" font-family="Inter" font-size="9" fill="#DDDDDD">Try a 60-sec practice round — no ELO on the line.</text>
+          <text x="346" y="176" font-family="Inter" font-size="9" fill="#C8F73E" font-weight="600">See how it feels before going live.</text>
+          <!-- two buttons -->
+          <rect x="332" y="192" width="140" height="36" rx="5" fill="#C8F73E"/>
+          <text x="402" y="215" text-anchor="middle" font-family="Inter" font-size="11" font-weight="800" fill="#000">PRACTICE FIRST</text>
+          <rect x="480" y="192" width="144" height="36" rx="5" fill="#3A3A3A" stroke="#444"/>
+          <text x="552" y="208" text-anchor="middle" font-family="Inter" font-size="10" font-weight="700" fill="#CCCCCC">PLAY LIVE</text>
+          <text x="552" y="222" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#BBBBBB">skip practice</text>
+          <!-- check marker -->
+          <circle cx="478" cy="258" r="16" fill="rgba(200,247,62,0.12)"/>
+          <text x="478" y="264" text-anchor="middle" font-family="Inter" font-size="18" fill="#C8F73E">✓</text>
+          <text x="478" y="282" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#C8F73E">USER GETS</text>
+          <text x="478" y="293" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#C8F73E">A REAL TASTE</text>
+        </svg>
+      </div>
+      <div class="mockup-caption">Left: current flow drops new users straight into live duels · Right: proposed practice gate before first live match in any new mode</div>
+
       <div class="callout amber">
         <b>The risk of leaving this unfixed</b>
-        Matiks' funded roadmap mentions regional language launches and classroom tools. Both rely on reaching users who are less mathematically confident than the early-adopter power users. Those users will bounce even faster at a blank "How to Play" screen. Fix onboarding for complex modes now, before scaling to a wider audience where the drop-off will be steeper.
+        Matiks' funded roadmap mentions regional language launches and classroom tools. Both rely on reaching users who are <strong>less mathematically confident than the early-adopter power users</strong>. Those users will bounce even faster at a blank "How to Play" screen. Fix onboarding for complex modes now, before scaling to a wider audience where the drop-off will be steeper.
       </div>
 
       <div class="rec-block" style="margin-top:14px;">
         <div class="rec-num">Metric</div>
         <div class="rec-title">Mode adoption rate beyond DMAS</div>
-        <div class="rec-why">Currently I'd expect DMAS dominates session starts heavily. The target: percentage of users who play at least one non-DMAS mode in their first 7 days should rise meaningfully after the practice round ships — that's the leading indicator that the onboarding fix is working before it shows up in retention.</div>
+        <div class="rec-why">Currently DMAS dominates session starts heavily. The target: percentage of users who play at least one non-DMAS mode in their first 7 days should rise meaningfully after the practice round ships — that's the leading indicator that the onboarding fix is working before it shows up in retention.</div>
         <div class="rec-metric">Watch for: <span>% users completing ≥1 non-DMAS duel in first 7 days</span> · baseline to be established, target +15pp within 30 days</div>
       </div>
     </div>
@@ -594,12 +727,12 @@
       </div>
       <h2>Build a monetisation path that doesn't alienate the core</h2>
 
-      <p>Matiks currently has <strong>100K users</strong> and one paid product: the Creators Programme (hosting tournaments, building communities). That's the right instinct — monetise the power users who get the most from the platform — but it's a thin wedge. Here's the problem: the segment most likely to pay for Creators is exactly the same segment most likely to leave if competitive integrity stays broken. You can't sell a premium tournament product on a platform where the leaderboard is visibly inflated.</p>
+      <p>Matiks currently has <strong>100K users</strong> and one paid product: the Creators Programme. That's the right instinct — monetise the power users — but it's a thin wedge. The segment most likely to pay for Creators is exactly the same segment most likely to leave if competitive integrity stays broken. <strong>You can't sell a premium tournament product on a platform where the leaderboard is visibly inflated.</strong></p>
 
       <div class="finding-grid">
         <div class="finding-card good">
           <div class="finding-title">What could work: Skill Pass</div>
-          <div class="finding-body">A monthly subscription that unlocks: detailed accuracy breakdowns, opponent performance history post-match, and practice mode for any game format. Targets serious players. Priced at ₹99–149/month — well within India's gaming subscription comfort zone.</div>
+          <div class="finding-body">Monthly subscription unlocking: detailed accuracy breakdowns, opponent performance history post-match, and practice mode for any format. Targets serious players. Priced at ₹99–149/month — well within India's gaming subscription comfort zone.</div>
         </div>
         <div class="finding-card good">
           <div class="finding-title">What could work: Brand Contests</div>
@@ -607,15 +740,76 @@
         </div>
         <div class="finding-card bad">
           <div class="finding-title">What won't work: Pay-to-win anything</div>
-          <div class="finding-body">Any model that lets users buy ELO boosts, skip matchmaking queues, or purchase extra daily challenges that affect competitive standing. Instantly destroys trust in an app that's already fighting integrity perception problems.</div>
+          <div class="finding-body">Any model that lets users buy ELO boosts, skip matchmaking queues, or purchase extra challenges affecting competitive standing. <strong>Instantly destroys trust in an app already fighting integrity perception problems.</strong> The XP Booster product that exists today is a yellow flag — it must never touch ELO.</div>
         </div>
       </div>
 
-      <p>The real monetisation unlock is <strong>scale, not product complexity</strong>. At 100K users, ad revenue from rewarded video would already cover operating costs — <em>ads captured 46.18% of India gaming revenue in 2025</em><span style="font-size:0.78rem;color:var(--mute);"> [Mordor Intelligence]</span>. At 1M users, a Skill Pass at ₹99/month with even 3% conversion is ₹30L/month in recurring revenue. The monetisation strategy right now should be: fix retention first, grow the base, then layer subscriptions. Not the reverse.</p>
+      <!-- FIX 3 MOCKUP: Skill Pass UI concept -->
+      <div class="mockup-frame">
+        <svg viewBox="0 0 640 300" width="600" style="min-width:500px;">
+          <rect width="640" height="300" rx="10" fill="#2C2C2C"/>
+
+          <!-- LEFT: Skill Pass card concept -->
+          <text x="20" y="26" font-family="JetBrains Mono" font-size="9" fill="#C8F73E" letter-spacing="1">PROPOSED — SKILL PASS SUBSCRIPTION</text>
+          <!-- card -->
+          <rect x="16" y="36" width="290" height="240" rx="8" fill="#1E1E1E" stroke="#C8F73E" stroke-width="1.5"/>
+          <!-- top accent -->
+          <rect x="16" y="36" width="290" height="48" rx="8" fill="rgba(200,247,62,0.15)"/>
+          <rect x="16" y="68" width="290" height="16" rx="0" fill="rgba(200,247,62,0.15)"/>
+          <text x="30" y="56" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#C8F73E">SKILL PASS</text>
+          <text x="30" y="74" font-family="Inter" font-size="8" fill="#CCCCCC">Unlock the full competitive picture</text>
+          <!-- price -->
+          <text x="220" y="60" text-anchor="end" font-family="Inter" font-size="20" font-weight="900" fill="#C8F73E">₹99</text>
+          <text x="220" y="74" text-anchor="end" font-family="JetBrains Mono" font-size="7" fill="#BBBBBB">/month</text>
+          <!-- features list -->
+          <text x="30" y="104" font-family="Inter" font-size="9" fill="#C8F73E">✓</text>
+          <text x="44" y="104" font-family="Inter" font-size="9" fill="#E0E0E0">Accuracy breakdown by question type</text>
+          <text x="30" y="122" font-family="Inter" font-size="9" fill="#C8F73E">✓</text>
+          <text x="44" y="122" font-family="Inter" font-size="9" fill="#E0E0E0">Opponent performance history post-match</text>
+          <text x="30" y="140" font-family="Inter" font-size="9" fill="#C8F73E">✓</text>
+          <text x="44" y="140" font-family="Inter" font-size="9" fill="#E0E0E0">Unlimited practice mode — all formats</text>
+          <text x="30" y="158" font-family="Inter" font-size="9" fill="#C8F73E">✓</text>
+          <text x="44" y="158" font-family="Inter" font-size="9" fill="#E0E0E0">Skill Rating badge on public profile</text>
+          <text x="30" y="176" font-family="Inter" font-size="9" fill="#BBBBBB">✗  No ELO boost. Wins are still earned.</text>
+          <!-- CTA -->
+          <rect x="30" y="192" width="256" height="36" rx="5" fill="#C8F73E"/>
+          <text x="158" y="216" text-anchor="middle" font-family="Inter" font-size="12" font-weight="900" fill="#000">GET SKILL PASS</text>
+          <text x="158" y="238" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#BBBBBB">cancel any time · no ELO effects</text>
+          <text x="158" y="268" text-anchor="middle" font-family="JetBrains Mono" font-size="7.5" fill="#BBBBBB">FREE TIER: all core duels remain free forever</text>
+
+          <!-- Divider -->
+          <line x1="326" y1="36" x2="326" y2="280" stroke="#4A4A4A" stroke-width="1"/>
+
+          <!-- RIGHT: Revenue projection -->
+          <text x="344" y="26" font-family="JetBrains Mono" font-size="9" fill="#C8F73E" letter-spacing="1">REVENUE MODEL — SEQUENCE MATTERS</text>
+          <!-- Steps -->
+          <!-- Step 1 -->
+          <rect x="340" y="40" width="284" height="44" rx="4" fill="#3A3A3A" stroke="#C8F73E" stroke-width="1"/>
+          <text x="354" y="58" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#C8F73E">STEP 1  →  Fix integrity + onboarding</text>
+          <text x="354" y="74" font-family="Inter" font-size="8" fill="#CCCCCC">Build the trust that makes paying feel worth it</text>
+          <!-- Step 2 -->
+          <rect x="340" y="94" width="284" height="44" rx="4" fill="#3A3A3A" stroke="#888" stroke-width="1"/>
+          <text x="354" y="112" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#C8F73E">STEP 2  →  Scale to 500K users</text>
+          <text x="354" y="128" font-family="Inter" font-size="8" fill="#CCCCCC">Ad revenue covers ops · 46% of India gaming rev</text>
+          <!-- Step 3 -->
+          <rect x="340" y="148" width="284" height="44" rx="4" fill="#3A3A3A" stroke="#888" stroke-width="1"/>
+          <text x="354" y="166" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#C8F73E">STEP 3  →  Launch Skill Pass</text>
+          <text x="354" y="182" font-family="Inter" font-size="8" fill="#CCCCCC">3% conversion × ₹99/mo × 500K = ₹14.85L/mo</text>
+          <!-- math -->
+          <rect x="340" y="204" width="284" height="56" rx="4" fill="rgba(200,247,62,0.1)" stroke="#C8F73E" stroke-width="0.8"/>
+          <text x="354" y="222" font-family="JetBrains Mono" font-size="8" fill="#BBBBBB">AT 3% CONVERSION · 500K USERS</text>
+          <text x="354" y="242" font-family="Inter" font-size="18" font-weight="900" fill="#C8F73E">₹14.85L</text>
+          <text x="490" y="242" font-family="Inter" font-size="10" fill="#BBBBBB">/month MRR</text>
+          <text x="354" y="256" font-family="JetBrains Mono" font-size="7.5" fill="#BBBBBB">without any pay-to-win mechanics</text>
+        </svg>
+      </div>
+      <div class="mockup-caption">Left: proposed Skill Pass — insight-only, no competitive advantage · Right: sequenced revenue model — trust first, then monetise</div>
+
+      <p>The real monetisation unlock is <strong>scale, not product complexity</strong>. At 100K users, ad revenue from rewarded video would already cover operating costs. At 1M users, a Skill Pass at ₹99/month with even 3% conversion is serious recurring revenue. <em>The monetisation strategy right now should be: fix retention first, grow the base, then layer subscriptions. Not the reverse.</em></p>
 
       <div class="callout">
         <b>The sequence matters</b>
-        Integrity fix → Onboarding fix → Scale to 500K users → Launch Skill Pass. In that order. Launching paid features on a platform where high-skill users don't trust the leaderboard is selling premium seats on a bus with no route.
+        <strong>Integrity fix → Onboarding fix → Scale to 500K users → Launch Skill Pass.</strong> In that order. Launching paid features on a platform where high-skill users don't trust the leaderboard is selling premium seats on a bus with no route.
       </div>
 
       <div class="sources-block">
@@ -634,11 +828,11 @@
 
       <div class="evidence evidence-streak">
         <span class="evidence-label">📍 Why I have a 40-day streak</span>
-        <p>I captained my university volleyball team and competed in math competitively — both are activities where the score is real, the opponent is real, and the gap between your good days and bad days is visible. Matiks is the first app that's made math feel like that again. <strong>The core concept genuinely works for me as a user.</strong> Which makes the integrity problems more frustrating, not less — I know what this could be if the competitive trust was real.</p>
+        <p>I captained my university volleyball team and competed in math competitively — both are activities where the score is real, the opponent is real, and the gap between your good days and bad days is visible. Matiks is the first app that's made math feel like that again. <strong>The core concept genuinely works for me as a user.</strong> Which makes the integrity problems more frustrating, not less — I know what this could be if the competitive trust were real.</p>
       </div>
 
       <p>The biggest thing I'd flag to Matiks' PM team: <strong>your most engaged users are your harshest critics</strong> — not because they want to leave, but because they care enough to notice when the game is unfair. The 40-day streak user who sees an 80-question-in-1:47 score is not going to quietly accept it. They're going to feel like their investment in the product was wasted.</p>
-      <p>I'd also want Matiks to think carefully about <strong>what "Duolingo of math" actually means</strong> — because Duolingo's core design insight wasn't gamification, it was <em>forgiveness</em>. Losing a streak on Duolingo doesn't feel catastrophic because the app is warm and encouraging. Matiks is the opposite register — it's competitive, fast, high-stakes by design. That's the right call for a certain user, but it means the app has very little room to absorb trust damage before that user walks. The tolerance for unfairness in a high-stakes competitive product is much lower than in a casual learning app.</p>
+      <p>I'd also want Matiks to think carefully about <strong>what "Duolingo of math" actually means</strong> — because Duolingo's core design insight wasn't gamification, it was <em>forgiveness</em>. Losing a streak on Duolingo doesn't feel catastrophic because the app is warm and encouraging. Matiks is the opposite register — competitive, fast, high-stakes by design. That's the right call for a certain user, but it means the app has <strong>very little room to absorb trust damage</strong> before that user walks.</p>
       <p>Finally: the <strong>XP-as-volume problem is fixable without rebuilding the system</strong>. Add a secondary visible metric — accuracy-weighted ELO, or "Skill Rating" distinct from XP — that compounds quality of play, not just quantity. Show both. Let users self-select which one they care about. That single change makes XP honest without taking anything away from the users who value grinding.</p>
     </div>
 
@@ -646,11 +840,11 @@
 </div>
 
 <div class="case-foot-nav">
-  <a href="case-02.html">
+  <a href="case2.html">
     <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
     Previous case
   </a>
-  <a href="case-05.html">
+  <a href="case5.html">
     Next case
     <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </a>
@@ -658,11 +852,10 @@
 
 <footer>
   <span>Bengaluru · 2026</span>
-  <a href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
 </footer>
 
 <script>
-  /* ===== Nav ===== */
   const navBtns = document.querySelectorAll('.side-nav button');
   const panels  = document.querySelectorAll('.panel');
   navBtns.forEach(btn=>{
@@ -676,7 +869,6 @@
     });
   });
 
-  /* ===== Scoreboard count-up ===== */
   function countUp(el, target, suffix, duration){
     const start = performance.now();
     const update = (now) => {
