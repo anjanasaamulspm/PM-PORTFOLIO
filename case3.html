@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work — Case Studies</title>
+    <title>Case 03 — Cooking</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,56 +13,29 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f7f5f0;
+            background-color: #fcf9f5;
             color: #111111;
-            padding: 60px 40px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: center;
+            padding: 24px;
         }
 
-        .portfolio-container {
-            max-width: 1200px;
+        .container {
+            max-width: 680px;
             width: 100%;
-        }
-
-        /* Top Header Area mimicking a live design site layout */
-        .portfolio-header {
-            margin-bottom: 60px;
-            border-bottom: 1px solid #ebdcd0;
-            padding-bottom: 24px;
-        }
-
-        .portfolio-header h2 {
-            font-family: "Georgia", serif;
-            font-size: 32px;
-            font-weight: 600;
-            color: #111111;
-        }
-
-        /* Structural Grid System */
-        .case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 40px 32px;
-            width: 100%;
-        }
-
-        .card {
-            background-color: #fdfbf7;
-            border: 1px solid #d3cdbfa0;
-            border-radius: 12px;
-            padding: 28px;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            align-items: center;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(179, 89, 54, 0.05);
+        .meta-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
         }
 
         .case-badge {
@@ -74,9 +47,7 @@
             letter-spacing: 1px;
             padding: 4px 10px;
             border-radius: 4px;
-            position: absolute;
-            top: -12px;
-            left: 24px;
+            text-transform: uppercase;
         }
 
         .status-stamp {
@@ -86,49 +57,45 @@
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 1.5px;
-            padding: 5px 12px;
+            padding: 4px 12px;
             border-radius: 4px;
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            transform: rotate(-3deg);
             text-transform: uppercase;
-            animation: gentle-wobble 4s ease-in-out infinite;
+            transform: rotate(-2deg);
         }
 
-        .illustration-container {
+        .graphic-hero {
             background-color: #ebdcd0;
             background-image: linear-gradient(#e3d2c5 1px, transparent 1px), linear-gradient(90deg, #e3d2c5 1px, transparent 1px);
-            background-size: 20px 20px;
-            border-radius: 8px;
-            height: 220px;
-            margin-top: 24px;
-            margin-bottom: 24px;
+            background-size: 24px 24px;
+            border: 1px solid #d3cdbfa0;
+            border-radius: 12px;
+            width: 100%;
+            height: 320px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 24px rgba(179, 89, 54, 0.03);
         }
 
-        /* Micro-interactions for graphic components */
         .icon-graphic {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 36px;
         }
 
         .fork, .knife {
-            font-size: 28px;
+            font-size: 36px;
             color: #b35936;
             font-weight: 300;
-            opacity: 0.8;
+            opacity: 0.85;
             user-select: none;
         }
 
         .target-circles {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border: 3px solid #b35936;
             border-radius: 50%;
             display: flex;
@@ -139,8 +106,8 @@
         .target-circles::before {
             content: '';
             position: absolute;
-            width: 66px;
-            height: 66px;
+            width: 86px;
+            height: 86px;
             border: 2px solid #b35936;
             border-radius: 50%;
         }
@@ -148,175 +115,72 @@
         .target-circles::after {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             background-color: #b35936;
             border-radius: 50%;
-            animation: simmer-heat 2s ease-in-out infinite alternate;
+            animation: simmer 2.5s ease-in-out infinite alternate;
         }
 
         .small-dot {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: #b35936;
             border-radius: 50%;
-            bottom: 22px;
-            right: 26px;
+            bottom: 28px;
+            right: 32px;
         }
 
-        .content h1 {
+        h1 {
             font-family: "Georgia", serif;
-            font-size: 24px;
+            font-size: 32px;
             line-height: 1.3;
             font-weight: 600;
-            margin-bottom: 12px;
             color: #111111;
         }
 
-        .content p {
-            font-size: 14.5px;
-            line-height: 1.6;
-            color: #555555;
-            margin-bottom: 24px;
+        @keyframes simmer {
+            0% {
+                transform: scale(0.88);
+                opacity: 0.75;
+                box-shadow: 0 0 0 0 rgba(179, 89, 54, 0.2);
+            }
+            100% {
+                transform: scale(1.08);
+                opacity: 1;
+                box-shadow: 0 0 0 12px rgba(179, 89, 54, 0);
+            }
         }
 
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #ebdcd080;
-            padding-top: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: auto;
-        }
-
-        .tags {
-            display: flex;
-            gap: 6px;
-        }
-
-        .tag {
-            background-color: transparent;
-            border: 1px solid #d3cdbf;
-            color: #767064;
-            font-size: 11px;
-            padding: 4px 12px;
-            border-radius: 16px;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            color: #b35936;
-            font-weight: 600;
-            font-size: 14px;
-            font-family: inherit;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: transform 0.2s ease;
-        }
-
-        .action-btn:hover {
-            transform: translateX(4px);
-        }
-
-        /* Generic styles for adjacent mock elements in the layout structure */
-        .card.completed .illustration-container {
-            background-color: #e2ebdf;
-            background-image: linear-gradient(#d5e2d1 1px, transparent 1px), linear-gradient(90deg, #d5e2d1 1px, transparent 1px);
-        }
-        .card.completed .fork, .card.completed .knife, .card.completed .target-circles {
-            color: #3e6b48; border-color: #3e6b48;
-        }
-        .card.completed .target-circles::before { border-color: #3e6b48; }
-        .card.completed .target-circles::after { background-color: #3e6b48; animation: none; }
-        .card.completed .action-btn { color: #3e6b48; }
-
-        @keyframes simmer-heat {
-            0% { transform: scale(0.9); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-
-        @keyframes gentle-wobble {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(-1deg); }
-        }
-
-        @media (max-width: 500px) {
-            body { padding: 40px 16px; }
-            .case-grid { grid-template-columns: 1fr; }
+        @media (max-width: 600px) {
+            h1 { font-size: 26px; }
+            .graphic-hero { height: 240px; }
+            .target-circles { transform: scale(0.8); }
         }
     </style>
 </head>
 <body>
 
-    <div class="portfolio-container">
-        <div class="portfolio-header">
-            <h2>Product Strategy Breakdowns</h2>
+    <div class="container">
+        
+        <div class="meta-header">
+            <span class="case-badge">CASE 03</span>
+            <span class="status-stamp">Simmering</span>
         </div>
 
-        <div class="case-grid">
-            <!-- Active Simmering Card Block -->
-            <div class="card">
-                <div class="case-badge">CASE 03</div>
-                <div class="status-stamp">Simmering</div>
-
-                <div class="illustration-container">
-                    <div class="icon-graphic">
-                        <span class="fork">F</span>
-                        <div class="target-circles">
-                            <div class="small-dot"></div>
-                        </div>
-                        <span class="knife">¶</span>
-                    </div>
+        <div class="graphic-hero">
+            <div class="icon-graphic">
+                <span class="fork">F</span>
+                <div class="target-circles">
+                    <div class="small-dot"></div>
                 </div>
-
-                <div class="content">
-                    <h1>Ownly by Rapido: reading the model behind a new food delivery entrant</h1>
-                    <p>Rapido's food delivery push is a big bet on its network. We're currently putting the final touches on this breakdown—it's in the oven and smells incredible. This case study will be served fresh in a few days.</p>
-                </div>
-
-                <div class="footer">
-                    <div class="tags">
-                        <span class="tag">JTBD</span>
-                        <span class="tag">Kano</span>
-                        <span class="tag">A/B Testing</span>
-                    </div>
-                    <button class="action-btn">
-                        Remind me when it's hot <span>→</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Adjacent structural item example to show hierarchy -->
-            <div class="card completed">
-                <div class="case-badge">CASE 02</div>
-                <div class="illustration-container">
-                    <div class="icon-graphic">
-                        <span class="fork">⚡</span>
-                        <div class="target-circles"></div>
-                        <span class="knife">📈</span>
-                    </div>
-                </div>
-                <div class="content">
-                    <h1>Zepto pass and the structural locks of quick commerce</h1>
-                    <p>An analysis exploring the consumer stickiness levers behind micro-subscription passes and high density user mapping optimization mechanics.</p>
-                </div>
-                <div class="footer">
-                    <div class="tags">
-                        <span class="tag">Retention</span>
-                        <span class="tag">Cohorts</span>
-                    </div>
-                    <button class="action-btn">
-                        Read case <span>→</span>
-                    </button>
-                </div>
+                <span class="knife">¶</span>
             </div>
         </div>
+
+        <h1>Cooking</h1>
+        
     </div>
 
 </body>
