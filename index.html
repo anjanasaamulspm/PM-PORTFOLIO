@@ -359,22 +359,22 @@ const cases = [
   {
     num: "03",
     status: "progress",
-    title: "A fitness app that explains the \"why\" to first-timers",
-    q: "Beginners don't lack exercise data- they lack a reason to trust it. What does a BMI- and goal-aware workout plan look like when it's built on verified sources?",
-    frameworks: ["Kano","North Star","A/B Testing"],
+    title: "Ownly by Rapido: reading the model behind a new food delivery entrant",
+    q: "Rapido's food delivery push is a bet on its existing rider network and pricing position- this is a look at what that bet actually is, not a list of fixes for it.",
+    frameworks: ["JTBD","Kano","A/B Testing"],
     href: "case3.html",
-    coverColor: "#3D453F",
-    coverMotif: "pulse"
+    coverColor: "#C4592F",
+    coverMotif: "plate"
   },
   {
     num: "04",
-    status: "progress",
-    title: "Navi: lending made to feel like a utility, not a loan",
-    q: "Navi strips lending down to its simplest form- what's the product bet behind that simplicity, and where does it start to cost them?",
-    frameworks: ["AARRR","Double Diamond"],
+    status: "live",
+    title: "Matiks: turning math into a sport worth grinding for",
+    q: "Matiks is building the right thing- competitive math as a sport, not a chore. What's eroding the core experience for its most committed players, and what would I fix first?",
+    frameworks: ["Hook Model","AARRR","User Research"],
     href: "case4.html",
-    coverColor: "#0E7C7B",
-    coverMotif: "funnel"
+    coverColor: "#3D453F",
+    coverMotif: "duel"
   },
   {
     num: "05",
@@ -429,6 +429,38 @@ function svgCover(c){
       <circle cx="150" cy="100" r="38" fill="none" stroke="${c.coverColor}" stroke-width="4"/>
       <circle cx="200" cy="130" r="30" fill="none" stroke="${c.coverColor}" stroke-width="4"/>
       <circle cx="250" cy="90" r="22" fill="none" stroke="${c.coverColor}" stroke-width="4"/>
+    </g>`;
+  } else if(c.coverMotif === "plate"){
+    motif = `<g transform="translate(200,125)">
+      <circle cx="0" cy="0" r="62" fill="none" stroke="${c.coverColor}" stroke-width="4"/>
+      <circle cx="0" cy="0" r="40" fill="none" stroke="${c.coverColor}" stroke-width="3" stroke-opacity="0.6"/>
+      <path d="M-95 -8 L-95 35 M-95 -8 L-88 -8 M-95 8 L-88 8" fill="none" stroke="${c.coverColor}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M88 -8 C 82 -8 82 8 88 8 L88 35" fill="none" stroke="${c.coverColor}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-14 -18 Q0 -34 14 -18 Q22 -6 14 6 Q0 16 -14 6 Q-22 -6 -14 -18 Z" fill="${c.coverColor}" opacity="0.55"/>
+      <circle cx="-2" cy="10" r="5" fill="${c.coverColor}" opacity="0.4"/>
+      <circle cx="16" cy="14" r="4" fill="${c.coverColor}" opacity="0.4"/>
+    </g>`;
+  } else if(c.coverMotif === "duel"){
+    motif = `<g transform="translate(200,125)">
+      <!-- Sword 1: blade made of a number, crossing top-left to bottom-right -->
+      <g transform="rotate(40)">
+        <line x1="-110" y1="0" x2="95" y2="0" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round"/>
+        <line x1="78" y1="-16" x2="78" y2="16" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round"/>
+        <line x1="-110" y1="0" x2="-92" y2="-10" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round"/>
+        <line x1="-110" y1="0" x2="-92" y2="10" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round"/>
+        <text x="20" y="-10" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="${c.coverColor}">7</text>
+      </g>
+      <!-- Sword 2: blade made of a number, crossing top-right to bottom-left -->
+      <g transform="rotate(-40)">
+        <line x1="-110" y1="0" x2="95" y2="0" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75"/>
+        <line x1="78" y1="-16" x2="78" y2="16" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75"/>
+        <line x1="-110" y1="0" x2="-92" y2="-10" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75"/>
+        <line x1="-110" y1="0" x2="-92" y2="10" stroke="${c.coverColor}" stroke-width="5" stroke-linecap="round" stroke-opacity="0.75"/>
+        <text x="20" y="-10" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="${c.coverColor}" opacity="0.75">3</text>
+      </g>
+      <!-- clash spark at center -->
+      <circle cx="0" cy="0" r="7" fill="${c.coverColor}"/>
+      <path d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6 Z" fill="${c.coverColor}" opacity="0.5"/>
     </g>`;
   }
   return base + grid + motif + `</svg>`;
