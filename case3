@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 03 — Ownly by Rapido · Anjana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:        #EDE8DF;
+    --bg-deep:   #E4DDD2;
+    --card:      #F5F0E8;
+    --line:      #D4C9B8;
+    --ink:       #2A1F14;
+    --ink-soft:  #5A4A38;
+    --ink-mute:  #9A8C7C;
+    --terra:     #C4592F;
+    --terra-dim: rgba(196,89,47,0.12);
+    --hot:       #E8197A;
+    --hot-dim:   rgba(232,25,122,0.10);
+    --warm:      #E8A050;
+    --warm-dim:  rgba(232,160,80,0.15);
+    --green:     #4A7C59;
+    --green-dim: rgba(74,124,89,0.12);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(circle at 1px 1px,rgba(42,31,20,0.04) 1px,transparent 0);
+    background-size:24px 24px;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  a{ color:inherit; text-decoration:none; }
+  :focus-visible{ outline:2px solid var(--hot); outline-offset:2px; }
+
+  /* ===== Header ===== */
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px clamp(20px,5vw,64px) 16px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:rgba(237,232,223,0.94);
+    backdrop-filter:blur(8px); z-index:50;
+  }
+  .logo{ font-family:'Spectral',serif; font-weight:700; font-size:1.12rem; color:var(--ink); }
+  .logo .dot{ color:var(--terra); }
+  nav.headlinks{ display:flex; gap:26px; align-items:center; }
+  nav.headlinks a{ font-size:0.82rem; font-weight:600; color:var(--ink-soft); border-bottom:1px solid transparent; transition:border-color .2s,color .2s; padding-bottom:2px; }
+  nav.headlinks a:hover{ color:var(--terra); border-color:var(--terra); }
+  .back-link{ display:flex; align-items:center; gap:6px; }
+  .back-link svg{ width:13px; height:13px; }
+
+  /* ===== OWNLY HERO BANNER ===== */
+  .ownly-hero{
+    background: linear-gradient(135deg, #E8197A 0%, #D4006A 40%, #B5005A 100%);
+    padding:clamp(48px,8vw,88px) clamp(20px,5vw,64px) clamp(40px,6vw,72px);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .ownly-hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,0.12),transparent 60%);
+    pointer-events:none;
+  }
+  /* Subtle texture dots like the screenshot */
+  .ownly-hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.06) 1px,transparent 0);
+    background-size:28px 28px;
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:600;
+    letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.7);
+    margin-bottom:16px; position:relative; z-index:1;
+  }
+  .hero-title{
+    font-family:'Inter',sans-serif; font-weight:900;
+    font-size:clamp(3rem,9vw,7rem);
+    line-height:0.95; letter-spacing:-0.04em;
+    color:#fff;
+    margin-bottom:16px;
+    position:relative; z-index:1;
+  }
+  .hero-sub{
+    font-size:clamp(1rem,2.2vw,1.35rem); color:rgba(255,255,255,0.8);
+    max-width:56ch; margin:0 auto 32px;
+    position:relative; z-index:1; line-height:1.6;
+  }
+  .hero-tags{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+  .hero-tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+    padding:5px 12px; border:1px solid rgba(255,255,255,0.35); border-radius:20px;
+    color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.08);
+  }
+  .hero-case-badge{
+    position:absolute; top:clamp(16px,3vw,28px); right:clamp(16px,3vw,28px);
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:700;
+    color:rgba(255,255,255,0.5); letter-spacing:0.1em; z-index:2;
+    text-transform:uppercase;
+  }
+  /* Video embed card */
+  .hero-video-card{
+    max-width:680px; margin:36px auto 0;
+    background:#111; border-radius:14px; overflow:hidden;
+    position:relative; z-index:1;
+    box-shadow:0 24px 64px rgba(0,0,0,0.45);
+  }
+  .video-top{ background:#1A1A1A; padding:10px 16px; display:flex; align-items:center; gap:10px; }
+  .video-logo{
+    width:28px; height:28px; border-radius:50%; background:var(--hot);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    font-size:10px; font-weight:900; color:#fff; font-family:'Inter',sans-serif;
+  }
+  .video-meta{ text-align:left; }
+  .video-title{ font-size:0.78rem; font-weight:700; color:#fff; line-height:1.3; }
+  .video-channel{ font-size:0.66rem; color:#888; }
+  .video-thumb{
+    width:100%; aspect-ratio:16/9; background:linear-gradient(135deg,#1C1C1C,#2A1010);
+    display:flex; align-items:center; justify-content:center; position:relative;
+    overflow:hidden;
+  }
+  .video-thumb-text{
+    position:absolute; bottom:16px; left:20px; right:20px;
+    font-family:'Inter',sans-serif; font-size:clamp(1.1rem,3vw,1.8rem);
+    font-weight:900; color:rgba(255,255,255,0.15); letter-spacing:-0.02em;
+    text-align:left; line-height:1.1;
+  }
+  /* Big play button */
+  .play-btn{
+    width:64px; height:46px; background:#FF0000; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; position:relative; z-index:1;
+  }
+  .play-btn::after{
+    content:""; border-left:20px solid #fff; border-top:12px solid transparent;
+    border-bottom:12px solid transparent; margin-left:4px;
+  }
+
+  /* ===== Scoreboard ===== */
+  .scoreboard{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    margin:44px 0 0; max-width:1100px;
+  }
+  .score-cell{ padding:22px 20px 18px; border-right:1px solid var(--line); position:relative; }
+  .score-cell:last-child{ border-right:none; }
+  .score-cell::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; }
+  .score-cell.hot::before{ background:var(--hot); }
+  .score-cell.terra::before{ background:var(--terra); }
+  .score-cell.warm::before{ background:var(--warm); }
+  .score-cell.green::before{ background:var(--green); }
+  .score-val{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(1.5rem,3vw,2.2rem); letter-spacing:-0.02em; line-height:1; display:block; }
+  .score-cell.hot .score-val{ color:var(--hot); }
+  .score-cell.terra .score-val{ color:var(--terra); }
+  .score-cell.warm .score-val{ color:var(--warm); }
+  .score-cell.green .score-val{ color:var(--green); }
+  .score-label{ font-size:0.74rem; color:var(--ink-soft); margin-top:7px; display:block; line-height:1.4; }
+  .score-sub{ font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--ink-mute); margin-top:4px; }
+
+  /* ===== Layout ===== */
+  .case-body{ display:grid; grid-template-columns:220px 1fr; gap:48px; max-width:1100px; margin:0 auto; padding:44px clamp(20px,5vw,64px) 100px; align-items:start; }
+
+  .side-nav{ position:sticky; top:88px; display:flex; flex-direction:column; gap:2px; border-left:2px solid var(--line); }
+  .side-nav button{ all:unset; cursor:pointer; font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:600; color:var(--ink-mute); padding:9px 0 9px 18px; border-left:2px solid transparent; margin-left:-2px; transition:color .18s,border-color .18s; display:flex; align-items:center; }
+  .side-nav button:hover{ color:var(--ink); }
+  .side-nav button.active{ color:var(--hot); border-left:2px solid var(--hot); }
+  .side-nav .step-no{ font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:700; margin-right:8px; color:#BBB0A0; background:rgba(42,31,20,0.08); padding:1px 5px; border-radius:2px; }
+  .side-nav button.active .step-no{ color:#fff; background:var(--hot); }
+
+  /* ===== Panels ===== */
+  .panels{ min-width:0; }
+  .panel{ display:none; animation:fadeIn .22s ease; }
+  .panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(5px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel-eyebrow{ font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--hot); display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .panel-eyebrow::before{ content:""; width:16px; height:1px; background:var(--hot); }
+  .panel h2{ font-family:'Spectral',serif; font-weight:700; font-size:1.65rem; margin-bottom:18px; letter-spacing:-0.01em; color:var(--ink); line-height:1.15; }
+  .panel p{ margin-bottom:14px; color:var(--ink-soft); font-size:0.95rem; line-height:1.78; }
+  .panel strong{ color:var(--ink); font-weight:700; }
+  .panel em{ color:var(--hot); font-style:normal; font-weight:600; }
+
+  /* Callouts */
+  .callout{ background:var(--hot-dim); border-left:3px solid var(--hot); padding:16px 18px; border-radius:4px; font-size:0.9rem; margin:20px 0; color:var(--ink); line-height:1.72; }
+  .callout b{ font-family:'JetBrains Mono',monospace; font-size:0.72rem; text-transform:uppercase; display:block; margin-bottom:8px; letter-spacing:0.06em; color:var(--hot); font-weight:700; }
+  .callout.terra{ background:var(--terra-dim); border-left-color:var(--terra); }
+  .callout.terra b{ color:var(--terra); }
+  .callout.warm{ background:var(--warm-dim); border-left-color:var(--warm); }
+  .callout.warm b{ color:var(--warm); }
+  .callout.green{ background:var(--green-dim); border-left-color:var(--green); }
+  .callout.green b{ color:var(--green); }
+  .callout.ink{ background:rgba(42,31,20,0.07); border-left-color:var(--ink); }
+  .callout.ink b{ color:var(--ink); }
+
+  /* Finding cards */
+  .finding-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:22px 0; }
+  .finding-card{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:18px 16px; border-top:3px solid; }
+  .finding-card.good{ border-top-color:var(--green); }
+  .finding-card.bad{ border-top-color:var(--terra); }
+  .finding-card.mid{ border-top-color:var(--warm); }
+  .finding-card.hot{ border-top-color:var(--hot); }
+  .finding-title{ font-weight:700; font-size:0.88rem; color:var(--ink); margin-bottom:6px; }
+  .finding-body{ font-size:0.8rem; color:var(--ink-soft); line-height:1.65; }
+
+  /* Stat grid */
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:22px 0; }
+  .stat-card{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:18px 16px; }
+  .stat-num{ font-family:'Spectral',serif; font-weight:700; font-size:2rem; color:var(--terra); line-height:1; }
+  .stat-label{ font-size:0.76rem; color:var(--ink-soft); margin-top:6px; line-height:1.45; }
+  .stat-src{ font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--ink-mute); margin-top:8px; }
+
+  /* Finance table */
+  .fin-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:0.86rem; }
+  .fin-table th{ font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-mute); text-align:left; padding:8px 12px; border-bottom:2px solid var(--ink); }
+  .fin-table td{ padding:10px 12px; border-bottom:1px solid var(--line); color:var(--ink-soft); vertical-align:top; }
+  .fin-table td:first-child{ font-weight:700; color:var(--ink); }
+  .fin-table tr.highlight td{ background:var(--terra-dim); color:var(--ink); }
+  .fin-table tr.highlight td:first-child{ color:var(--terra); }
+  .fin-table tr.good td{ background:var(--green-dim); }
+  .fin-table tr.good td:first-child{ color:var(--green); }
+  .fin-table tr.hot td{ background:var(--hot-dim); }
+  .fin-table tr.hot td:first-child{ color:var(--hot); }
+
+  /* Bar chart */
+  .chart-wrap{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:22px 20px; margin:22px 0; }
+  .chart-title{ font-family:'JetBrains Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-mute); margin-bottom:16px; }
+  .bar-row{ display:flex; align-items:center; gap:12px; margin-bottom:11px; }
+  .bar-label{ width:160px; font-size:0.78rem; color:var(--ink-soft); flex-shrink:0; }
+  .bar-track{ flex-grow:1; background:var(--bg-deep); border-radius:3px; height:20px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--hot); border-radius:3px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+  .bar-fill.terra{ background:var(--terra); }
+  .bar-fill.warm{ background:var(--warm); }
+  .bar-fill.green{ background:var(--green); }
+  .bar-fill.ink{ background:var(--ink); }
+  .bar-fill span{ font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:#fff; font-weight:700; }
+
+  /* Journey steps */
+  .journey{ display:flex; flex-direction:column; margin:24px 0; }
+  .j-step{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding-bottom:24px; position:relative; }
+  .j-step:not(:last-child)::before{ content:""; position:absolute; left:17px; top:34px; bottom:0; width:1px; background:var(--line); }
+  .j-num{ width:34px; height:34px; border-radius:4px; background:var(--hot); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:700; flex-shrink:0; z-index:1; }
+  .j-num.terra{ background:var(--terra); }
+  .j-num.warm{ background:var(--warm); color:var(--ink); }
+  .j-num.green{ background:var(--green); }
+  .j-num.ink{ background:var(--ink); }
+  .j-content h3{ font-family:'Spectral',serif; font-weight:700; font-size:1.02rem; margin-bottom:5px; color:var(--ink); }
+  .j-content p{ font-size:0.86rem; color:var(--ink-soft); margin-bottom:0; }
+
+  /* Unit econ comparison */
+  .compare-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0; }
+  .compare-card{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:18px 16px; }
+  .compare-head{ font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid; }
+  .compare-card.terra .compare-head{ color:var(--terra); border-color:var(--terra); }
+  .compare-card.hot .compare-head{ color:var(--hot); border-color:var(--hot); }
+  .compare-card.green .compare-head{ color:var(--green); border-color:var(--green); }
+  .compare-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; font-size:0.82rem; }
+  .compare-row .ck{ color:var(--ink-mute); }
+  .compare-row .cv{ font-weight:700; color:var(--ink); }
+  .compare-row .cv.pos{ color:var(--green); }
+  .compare-row .cv.neg{ color:var(--terra); }
+
+  /* Rec blocks */
+  .rec-block{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:24px 22px; margin:22px 0; position:relative; }
+  .rec-num{ position:absolute; top:-13px; left:18px; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:700; background:var(--hot); color:#fff; padding:4px 10px; border-radius:3px; text-transform:uppercase; letter-spacing:0.06em; }
+  .rec-title{ font-family:'Spectral',serif; font-weight:700; font-size:1.1rem; color:var(--ink); margin-bottom:8px; margin-top:4px; }
+  .rec-body{ font-size:0.88rem; color:var(--ink-soft); line-height:1.75; }
+  .rec-body strong{ color:var(--ink); }
+  .rec-metric{ margin-top:14px; padding-top:14px; border-top:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--ink-mute); }
+  .rec-metric span{ color:var(--hot); font-weight:700; }
+
+  /* KANO table */
+  .kano-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0; }
+  .kano-card{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:16px; }
+  .kano-head{ font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; margin-bottom:10px; padding-bottom:8px; border-bottom:1.5px solid; }
+  .kano-card.must .kano-head{ color:var(--terra); border-color:var(--terra); }
+  .kano-card.perf .kano-head{ color:var(--warm); border-color:var(--warm); }
+  .kano-card.delight .kano-head{ color:var(--green); border-color:var(--green); }
+  .kano-item{ font-size:0.8rem; color:var(--ink-soft); margin-bottom:7px; display:flex; gap:7px; align-items:flex-start; line-height:1.5; }
+  .kano-item::before{ content:"·"; color:var(--ink-mute); flex-shrink:0; margin-top:1px; }
+
+  .sources-block{ margin-top:28px; padding-top:16px; border-top:1px dashed var(--line); font-size:0.74rem; color:var(--ink-mute); font-family:'JetBrains Mono',monospace; line-height:1.8; }
+  .sources-block li{ list-style:none; margin-bottom:2px; }
+
+  .case-foot-nav{ display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto; padding:0 clamp(20px,5vw,64px) 60px; border-top:1px solid var(--line); padding-top:26px; }
+  .case-foot-nav a{ font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:flex; align-items:center; gap:6px; }
+  .case-foot-nav a:hover{ color:var(--hot); }
+  footer{ border-top:1px solid var(--line); padding:22px clamp(20px,5vw,64px) 36px; display:flex; justify-content:space-between; font-size:0.76rem; color:var(--ink-mute); flex-wrap:wrap; gap:10px; }
+
+  @media(max-width:860px){
+    .case-body{ grid-template-columns:1fr; }
+    .scoreboard{ grid-template-columns:1fr 1fr; }
+    .scoreboard .score-cell:nth-child(2){ border-right:none; }
+    .scoreboard .score-cell:nth-child(3){ border-top:1px solid var(--line); }
+    .scoreboard .score-cell:nth-child(4){ border-top:1px solid var(--line); border-right:none; }
+    .compare-grid,.kano-grid{ grid-template-columns:1fr; }
+    .side-nav{ position:static; flex-direction:row; flex-wrap:wrap; border-left:none; border-bottom:1px solid var(--line); padding-bottom:14px; gap:8px; }
+    .side-nav button{ border-left:none; border:1px solid var(--line); border-radius:20px; padding:6px 13px; margin-left:0; font-size:0.74rem; }
+    .side-nav button.active{ border-color:var(--hot); background:var(--hot-dim); }
+  }
+  @media(max-width:560px){ header{ flex-direction:column; align-items:flex-start; gap:12px; } }
+  @media(prefers-reduced-motion:reduce){ *{ scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Anjana<span class="dot">.</span>S A</div>
+  <nav class="headlinks">
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      All cases
+    </a>
+    <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:anjanasa066@gmail.com">Contact</a>
+  </nav>
+</header>
+
+<!-- ===== OWNLY BRAND HERO ===== -->
+<div class="ownly-hero">
+  <span class="hero-case-badge">Case 03</span>
+  <div class="hero-eyebrow">Ownly presents</div>
+  <h1 class="hero-title">The Food Court</h1>
+  <p class="hero-sub">Now in Bengaluru. A PM teardown of Rapido's boldest bet — reading the model behind a zero-commission food delivery entrant.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Business Model</span>
+    <span class="hero-tag">Unit Economics</span>
+    <span class="hero-tag">JTBD</span>
+    <span class="hero-tag">Kano Model</span>
+    <span class="hero-tag">A/B Testing</span>
+    <span class="hero-tag">In Progress</span>
+  </div>
+  <!-- Fake video card mimicking the campaign screenshot -->
+  <div class="hero-video-card">
+    <div class="video-top">
+      <div class="video-logo">🍽</div>
+      <div class="video-meta">
+        <div class="video-title">The Food Court | OWNLY | Now in Bengaluru</div>
+        <div class="video-channel">Ownly · Rapido's zero-commission food delivery</div>
+      </div>
+    </div>
+    <div class="video-thumb">
+      <div class="video-thumb-text">No commissions.<br>No hidden fees.<br>Just food.</div>
+      <div class="play-btn"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Scoreboard -->
+<div style="max-width:1100px; padding:0 clamp(20px,5vw,64px); margin:0 auto;">
+  <div class="scoreboard">
+    <div class="score-cell hot">
+      <span class="score-val mono" id="cnt-orders">0</span>
+      <span class="score-label">Daily orders in Bengaluru, March 2026</span>
+      <span class="score-sub">3 weeks post city-wide launch · Inc42</span>
+    </div>
+    <div class="score-cell terra">
+      <span class="score-val mono">20K+</span>
+      <span class="score-label">Restaurant partners onboarded</span>
+      <span class="score-sub">Bengaluru · 15% entirely new to online delivery</span>
+    </div>
+    <div class="score-cell warm">
+      <span class="score-val mono">₹934Cr</span>
+      <span class="score-label">Rapido FY25 operating revenue</span>
+      <span class="score-sub">↑44% YoY · delivery biz now outpaces ride-hailing</span>
+    </div>
+    <div class="score-cell green">
+      <span class="score-val mono">$3B</span>
+      <span class="score-label">Rapido valuation · May 2026</span>
+      <span class="score-sub">Series F · $240M · led by Prosus</span>
+    </div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <nav class="side-nav" id="sideNav">
+    <button data-panel="context" class="active"><span class="step-no mono">01</span>What Ownly is</button>
+    <button data-panel="finances"><span class="step-no mono">02</span>The financials</button>
+    <button data-panel="model"><span class="step-no mono">03</span>Business model</button>
+    <button data-panel="working"><span class="step-no mono">04</span>What's working</button>
+    <button data-panel="risks"><span class="step-no mono">05</span>What's not</button>
+    <button data-panel="recs"><span class="step-no mono">06</span>Recommendations</button>
+    <button data-panel="reflections"><span class="step-no mono">07</span>Reflections</button>
+  </nav>
+
+  <div class="panels">
+
+    <!-- 01 CONTEXT -->
+    <div class="panel active" id="panel-context">
+      <div class="panel-eyebrow">What Ownly is</div>
+      <h2>A logistics company using its idle fleet to break a duopoly's pricing model</h2>
+      <p>Ownly is Rapido's standalone food delivery app, piloted from August 2025 in Koramangala, HSR Layout, and BTM Layout, then launched city-wide across Bengaluru on <strong>March 3, 2026</strong>. The structural premise: <em>Rapido already delivers food for Zomato and Swiggy as a third-party logistics partner.</em> Ownly is the attempt to cut the intermediary and own the customer relationship directly.</p>
+      <p>The model's core positioning is <strong>zero commission to restaurants</strong>. Where Zomato charges 18–28% and Swiggy 17–25%, Ownly charges nothing. Revenue comes entirely from a flat ₹30 delivery fee paid by the customer. Restaurants keep 100% of food revenue, prices match dine-in, and there are no packaging mark-ups or platform fees. The "Food Promise" campaign — a satirical courtroom ad putting hidden charges on trial — went viral with restaurant owners and positioned Ownly as the verdict against a broken system.</p>
+
+      <div class="finding-grid">
+        <div class="finding-card good">
+          <div class="finding-title">The structural advantage</div>
+          <div class="finding-body">Rapido's 9M+ Captain network already delivers food for incumbents. Bike-taxi demand drops ~50% during lunch hours — Ownly fills that idle time with food orders. No fleet build from scratch, no incremental Captain recruiting cost.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">The 70K restaurant gap</div>
+          <div class="finding-body">Bengaluru has 1L+ FSSAI-licensed restaurants. Fewer than 30K are on Swiggy or Zomato. Ownly targets the invisible 70K — offline restaurants the incumbents never courted, much like Rapido did with offline autorickshaw drivers.</div>
+        </div>
+        <div class="finding-card mid">
+          <div class="finding-title">Perfect timing window</div>
+          <div class="finding-body">India's Online Gaming Act (Aug 2025) banned real-money gaming, freeing habitual app-spending attention. Zomato's platform fee hit ₹14.90 in March 2026 (from ₹2 in 2023). User anger at incumbents peaked at exactly the moment Ownly launched.</div>
+        </div>
+        <div class="finding-card bad">
+          <div class="finding-title">The revenue problem</div>
+          <div class="finding-body">₹30/order is the only income stream. At 5,000 daily orders that's ₹54.75L/month gross before delivery costs. With captain payouts of ₹40–70/order, Ownly is almost certainly losing ₹10–25 per order. This is a deliberate acquisition strategy — but it needs an exit.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <b>Why this teardown exists</b>
+        Ownly is one of the most interesting PM problems in Indian consumer tech right now — not because it's guaranteed to work, but because it's a genuine structural bet rather than a feature launch. The zero-commission promise, the offline restaurant play, and the idle-fleet economics each deserve stress-testing separately. This is that stress test.
+      </div>
+
+      <div class="sources-block">
+        <li>[1] Medianama, "Rapido Rolls Out Ownly In Bengaluru With Zero-Commission Model," March 5, 2026</li>
+        <li>[2] Inc42, "Food Delivery Is Expensive, And Rapido Wants It Fixed," March 28, 2026</li>
+        <li>[3] Upstox Originals, "Rapido's Ownly has early momentum, but can it scale?" April 6, 2026</li>
+      </div>
+    </div>
+
+    <!-- 02 FINANCES -->
+    <div class="panel" id="panel-finances">
+      <div class="panel-eyebrow">The financials</div>
+      <h2>Rapido parent is tracking toward profitability. Ownly itself has no visible revenue path — yet.</h2>
+      <p>Ownly is almost certainly a deliberate loss-leader funded by Rapido's core mobility business. Understanding the parent's runway tells you how long Ownly can afford to operate in the red.</p>
+
+      <div class="chart-wrap">
+        <div class="chart-title">Rapido operating revenue (₹ crore, FY22–FY25)</div>
+        <div class="bar-row"><div class="bar-label">FY22 — ₹145Cr</div><div class="bar-track"><div class="bar-fill" style="width:15%"><span>↑ start</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">FY23 — ₹443Cr (+205%)</div><div class="bar-track"><div class="bar-fill" style="width:47%"><span>3x</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">FY24 — ₹648Cr (+46%)</div><div class="bar-track"><div class="bar-fill" style="width:68%"><span>+46%</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">FY25 — ₹934Cr (+44%)</div><div class="bar-track"><div class="bar-fill" style="width:98%"><span>₹934Cr</span></div></div></div>
+        <div class="stat-src" style="margin-top:8px;">Source: Entrackr / RoC filings, Jan 2026</div>
+      </div>
+
+      <table class="fin-table">
+        <thead><tr><th>Metric</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th></tr></thead>
+        <tbody>
+          <tr class="good"><td>Operating Revenue</td><td>₹145Cr</td><td>₹443Cr</td><td>₹648Cr</td><td>₹934Cr</td></tr>
+          <tr><td>Total Income</td><td>—</td><td>—</td><td>₹579Cr</td><td>₹1,003Cr</td></tr>
+          <tr class="highlight"><td>Net Loss</td><td>₹440Cr</td><td>₹675Cr</td><td>₹371Cr</td><td>₹258Cr</td></tr>
+          <tr><td>EBITDA Margin</td><td>~−70%</td><td>~−60%</td><td>−52.5%</td><td>−19.6%</td></tr>
+          <tr><td>Subscription Income</td><td>—</td><td>—</td><td>~₹20Cr</td><td>₹275Cr (14×)</td></tr>
+          <tr class="good"><td>Delivery vs Ride-hailing</td><td colspan="3">Ride-hailing dominant</td><td><strong>Delivery surpassed ride-hailing</strong> in FY25</td></tr>
+        </tbody>
+      </table>
+
+      <p>Three things stand out. First, <strong>losses are narrowing fast</strong> — from ₹675Cr in FY23 to ₹258Cr in FY25, a 62% reduction in two years. Second, <strong>subscription income surged 14× to ₹275Cr</strong> — this is the zero-commission mobility playbook at work: Captains pay a subscription instead of per-ride cuts. Third, Rapido's <strong>delivery business now outpaces ride-hailing</strong> for the first time in FY25, proving the company can run a delivery business at scale. All three are signals that the Ownly playbook has precedent inside Rapido itself.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num">$798M</div><div class="stat-label">Total funding raised across 14 rounds</div><div class="stat-src">Latest: $240M Series F, May 2026 · Prosus lead</div></div>
+        <div class="stat-card"><div class="stat-num">₹125Cr</div><div class="stat-label">Dedicated Ownly war chest from Nexus</div><div class="stat-src">Earmarked specifically for food delivery entry</div></div>
+        <div class="stat-card"><div class="stat-num">~9–17mo</div><div class="stat-label">Estimated Bengaluru runway at current burn</div><div class="stat-src">₹15–30/order loss × 5K orders/day before Series F extension</div></div>
+      </div>
+
+      <div class="callout warm">
+        <b>The burn math</b>
+        At ₹30 revenue and ~₹50–60 delivery cost per order, Ownly loses roughly ₹20–30/order. At 5,000 daily orders that's ₹30–45L/day — or ₹9–13.5Cr/month of subsidy. The ₹125Cr Nexus war chest covers 9–14 months of Bengaluru at this burn rate. The $240M Series F meaningfully extends that runway, but only if orders scale without proportionally scaling losses — which requires either higher volume (spreading fixed costs) or a second revenue stream.
+      </div>
+
+      <div class="sources-block">
+        <li>[4] Entrackr / Fintrackr, "Rapido joins Rs 1,000 Cr income club in FY25," Jan 20, 2026</li>
+        <li>[5] Entrepreneurloop, "Rapido's $3 Billion Valuation," May 2026</li>
+        <li>[6] Tracxn, Rapido funding profile, accessed June 2026</li>
+      </div>
+    </div>
+
+    <!-- 03 MODEL -->
+    <div class="panel" id="panel-model">
+      <div class="panel-eyebrow">Business model</div>
+      <h2>Three model pivots in 12 months — and what each one signals about the team's thinking</h2>
+      <p>Ownly's commercial model has changed three times before the official launch. Reading that sequence tells you more about the real constraints than any press release does.</p>
+
+      <div class="journey">
+        <div class="j-step">
+          <div class="j-num warm">Jun '25</div>
+          <div class="j-content">
+            <h3>Announced: 8–15% restaurant commission</h3>
+            <p>Original plan — undercut Zomato/Swiggy's 17–30% with a flat 8–15% rate. Reasonable wedge play: restaurants save money, Ownly earns something. <strong>Abandoned before the pilot launched.</strong> Likely because NRAI wouldn't endorse a commission model, however discounted.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num warm">Aug '25</div>
+          <div class="j-content">
+            <h3>Pilot: restaurants paid the delivery cost</h3>
+            <p>Zero commission on order value, but restaurants shouldered delivery — ₹59 for orders above ₹400, ₹29.50 for ₹100–₹400. Gave Ownly delivery revenue without a commission label. <strong>Abandoned at city-wide launch</strong> — likely because this still felt like a cost to restaurants, undercutting the "free" positioning that NRAI was marketing on their behalf.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num">Mar '26</div>
+          <div class="j-content">
+            <h3>Current: customers pay everything (₹30 flat)</h3>
+            <p><strong>Restaurants pay zero. Customers pay ₹30. That's it.</strong> No commissions, no platform fees, no ad revenue, no subscriptions. All revenue is delivery fee × order count. This is where Ownly operates today — and where the unit economics problem lives.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card terra">
+          <div class="compare-head">Zomato / Swiggy</div>
+          <div class="compare-row"><span class="ck">Commission rate</span><span class="cv neg">17–30%</span></div>
+          <div class="compare-row"><span class="ck">Platform fee/order</span><span class="cv neg">₹14–18</span></div>
+          <div class="compare-row"><span class="ck">Restaurant markup</span><span class="cv neg">15–25% avg</span></div>
+          <div class="compare-row"><span class="ck">Revenue/order</span><span class="cv">₹80–120+</span></div>
+          <div class="compare-row"><span class="ck">₹119 pizza, total bill</span><span class="cv neg">₹180–191</span></div>
+          <div class="compare-row"><span class="ck">Unit economics</span><span class="cv pos">Profitable at scale</span></div>
+        </div>
+        <div class="compare-card hot">
+          <div class="compare-head">Ownly (Current)</div>
+          <div class="compare-row"><span class="ck">Commission rate</span><span class="cv pos">0%</span></div>
+          <div class="compare-row"><span class="ck">Platform fee/order</span><span class="cv pos">₹0</span></div>
+          <div class="compare-row"><span class="ck">Restaurant markup</span><span class="cv pos">0% (price parity)</span></div>
+          <div class="compare-row"><span class="ck">Revenue/order</span><span class="cv">₹30</span></div>
+          <div class="compare-row"><span class="ck">₹119 pizza, total bill</span><span class="cv pos">₹124.95</span></div>
+          <div class="compare-row"><span class="ck">Unit economics</span><span class="cv neg">Negative at 5K/day</span></div>
+        </div>
+        <div class="compare-card green">
+          <div class="compare-head">ONDC</div>
+          <div class="compare-row"><span class="ck">Commission rate</span><span class="cv pos">3–5%</span></div>
+          <div class="compare-row"><span class="ck">Platform fee/order</span><span class="cv pos">Low</span></div>
+          <div class="compare-row"><span class="ck">Restaurant markup</span><span class="cv pos">Minimal</span></div>
+          <div class="compare-row"><span class="ck">Revenue/order</span><span class="cv">Variable</span></div>
+          <div class="compare-row"><span class="ck">₹119 pizza, total bill</span><span class="cv">~₹140–155</span></div>
+          <div class="compare-row"><span class="ck">Discovery / UX</span><span class="cv neg">Fragmented</span></div>
+        </div>
+      </div>
+
+      <p>The customer price advantage is documented and real — the same pizza cost ₹124.95 on Ownly vs ₹191 on Zomato when a Bengaluru user ran the comparison on launch day. <strong>That's a 35% total bill reduction</strong>, which is a compelling switching reason. But a 35% price cut only works as a moat if you can sustain the economics at scale — and right now, Ownly cannot.</p>
+
+      <div class="callout ink">
+        <b>The Meesho analogy — what holds and what doesn't</b>
+        Aravind Sanka explicitly compares Ownly to Meesho — not competing for Zomato's existing users, but unlocking the offline 70K. The supply-side analogy holds: Meesho unlocked sellers that Flipkart ignored; Ownly is unlocking restaurants that Zomato ignored. But the demand-side analogy breaks: <strong>Meesho's customer acquisition cost was near-zero via WhatsApp social commerce</strong>. Ownly needs app downloads and individual user switching — both of which have a higher cost floor. The offline restaurants are an opportunity. They are not, by themselves, a demand-generation engine.
+      </div>
+
+      <div class="sources-block">
+        <li>[7] Business Standard, "Rapido to undercut Zomato, Swiggy with 8-15% restaurant commissions," June 2025</li>
+        <li>[8] Medianama / Verdict Food Service, pilot model documentation, Aug–Nov 2025</li>
+        <li>[9] Oneindia, "Rapido Food Delivery App Ownly Compared With Swiggy, Zomato," March 2026</li>
+        <li>[10] MenuManager, "Zomato Swiggy commission rates 2026," May 2026</li>
+      </div>
+    </div>
+
+    <!-- 04 WORKING -->
+    <div class="panel" id="panel-working">
+      <div class="panel-eyebrow">What's working</div>
+      <h2>Six things Ownly is genuinely getting right</h2>
+
+      <div class="finding-grid">
+        <div class="finding-card good">
+          <div class="finding-title">Fleet utilisation is structurally better</div>
+          <div class="finding-body">Bike-taxi demand drops ~50% during lunch peak food-delivery window. Captains fill idle time with Ownly orders. Rapido already has 4M+ registered Captains vs Swiggy's 530K and Zomato's 440K — the supply advantage is 8–9× at the network level.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">Restaurant anger is at historical peak</div>
+          <div class="finding-body">Zomato's platform fee grew from ₹2 in 2023 to ₹14.90 in March 2026 — a 645% hike in 3 years. Swiggy hit ₹17.58. NRAI (50K+ restaurants) co-built Ownly's launch and is vocal. Supply-side tailwind this strong doesn't come often.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">5,000 daily orders — organic, no discounts</div>
+          <div class="finding-body">This is fast traction for a new food app with no cashback, no Gold-equivalent, and only one city. Zomato and Swiggy relied on heavy subsidies in their early years. Ownly's early adoption is purely price-driven — a more durable signal.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">Swiggy sold its 12% Rapido stake</div>
+          <div class="finding-body">Swiggy sold ₹2,400Cr of Rapido equity to Prosus and WestBridge within weeks of Ownly launching. That's not a portfolio rotation — it's a conflict-of-interest exit. The best external signal that incumbents see Ownly as a real threat.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">Viral "Food Promise" campaign</div>
+          <div class="finding-body">Courtroom-themed ad satirising hidden charges went viral with restaurant owners as the primary sharers. Zero paid media spend, enormous earned reach among exactly the supply partners Ownly needed to onboard. Brilliant earned-media design.</div>
+        </div>
+        <div class="finding-card good">
+          <div class="finding-title">15% new-to-online restaurants</div>
+          <div class="finding-body">Of the first 2,300+ restaurants onboarded in Bengaluru, 15% had never done online food delivery before. That's the Meesho thesis in action — not just taking market share, but growing the addressable market.</div>
+        </div>
+      </div>
+
+      <div class="callout green">
+        <b>The mobility playbook already proved this works once</b>
+        Rapido killed per-ride commissions for auto and cab drivers, replaced with subscriptions, and became India's largest ride-hailing platform — 73.96M monthly users vs Uber's 39.05M (Jan–Feb 2026). Subscription income surged 14× to ₹275Cr in FY25 alone. <strong>This is the playbook Ownly is explicitly trying to repeat in food.</strong> The question is whether food delivery allows the same structural move that ride-hailing did.
+      </div>
+    </div>
+
+    <!-- 05 RISKS -->
+    <div class="panel" id="panel-risks">
+      <div class="panel-eyebrow">What's not working</div>
+      <h2>Four structural problems the current model hasn't solved</h2>
+      <p>Early traction is real but fragile. Each of these is a load-bearing wall — ignore any one and the model collapses at scale.</p>
+
+      <div class="journey">
+        <div class="j-step">
+          <div class="j-num terra">1</div>
+          <div class="j-content">
+            <h3>₹30/order is not a business model at scale</h3>
+            <p>At 5,000 daily orders, gross revenue is ~₹54.75L/month. Estimated delivery cost (captain payout + fuel + tech) is ₹50–70/order. <strong>Ownly is almost certainly losing ₹20–40 per order before any G&A cost.</strong> That's acceptable as a launch subsidy. It is not acceptable at 500,000 daily orders without a parallel revenue stream. The math simply doesn't close on delivery fees alone — even Zomato and Swiggy, with 20–30% commissions, only achieved near-profitability after a decade of scale.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num terra">2</div>
+          <div class="j-content">
+            <h3>Consumer switching cost is higher than it looks</h3>
+            <p>Zomato Gold and Swiggy One create subscription-locked loyalty — users pre-pay for annual/monthly benefits and won't leave mid-cycle. Beyond subscriptions, <strong>two years of order history, saved addresses, favourite restaurants, and wish lists don't transfer</strong>. A ₹65 saving per order is compelling. But it isn't always enough to overcome the inertia of a fully-configured Zomato account with 200+ order history and Gold benefits active.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num terra">3</div>
+          <div class="j-content">
+            <h3>Offline restaurants are offline for a reason</h3>
+            <p>Rapido's CEO frames the unserved 70K as an opportunity analogous to offline autorickshaws. But autorickshaws were offline because they lacked a booking app — demand was there. Many offline restaurants are offline because their volume is too low to justify operational complexity. <strong>A restaurant doing 10 covers a day doesn't automatically become viable at 50 online orders because commission is zero.</strong> Food quality consistency, packaging, and delivery-window management are operational skills many small restaurants haven't built. Onboarding them doesn't create order volume from nothing.</p>
+          </div>
+        </div>
+        <div class="j-step">
+          <div class="j-num terra">4</div>
+          <div class="j-content">
+            <h3>The commission creep credibility problem</h3>
+            <p>Zomato launched with zero commissions in 2010. Every restaurant owner in NRAI's 50K membership knows that history. <strong>The "zero commission forever" promise has no contractual enforcement mechanism</strong> — Ownly can raise commissions the moment it achieves supply-side lock-in, and restaurants have no legal protection. CEO promises and NRAI alignment are goodwill, not guarantees. This is the elephant in every NRAI town hall, and it limits how deeply restaurants will invest in Ownly-exclusive operations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout terra">
+        <b>The incumbent retaliation risk</b>
+        Zomato (Eternal) holds ₹15,000+ Cr in cash. Swiggy's IPO raised significant capital. Both can afford to temporarily waive commissions or subsidise delivery specifically in Bengaluru to starve Ownly of momentum. They haven't done so yet — either because they don't take Ownly seriously, or because their unit economics can't absorb a price war right now. <strong>Ownly needs to be in 4–5 cities before the incumbents' response lands</strong> — otherwise Bengaluru becomes a contained test that Zomato can neutralise with a targeted promotional blitz.
+      </div>
+
+      <table class="fin-table">
+        <thead><tr><th>Risk factor</th><th>Severity</th><th>Current mitigation</th><th>What's missing</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>No revenue beyond ₹30/order</td><td>Critical</td><td>₹125Cr war chest + $240M Series F runway</td><td>Second revenue stream before Series G pressure</td></tr>
+          <tr><td>Consumer switching friction</td><td>High</td><td>35% bill reduction on same-order comparison</td><td>No loyalty product, no data portability</td></tr>
+          <tr><td>Offline restaurants not viable online</td><td>Medium</td><td>NRAI partnership, "new to online" signal (15%)</td><td>No operational support for new entrants</td></tr>
+          <tr class="highlight"><td>Commission creep credibility</td><td>High</td><td>CEO promises, NRAI moral alignment</td><td>No contractual zero-commission guarantee</td></tr>
+          <tr><td>Incumbent retaliation</td><td>High</td><td>Speed of city expansion (10-city target)</td><td>Still single-city 3+ months post full launch</td></tr>
+          <tr><td>Tier-2/3 expansion complexity</td><td>Medium</td><td>Rapido's 600-city Captain network exists</td><td>Food delivery quality varies vs mobility quality</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sources-block">
+        <li>[11] Upstox Originals, unit economics analysis, April 2026</li>
+        <li>[12] Drudhh, "Rapido Deep Analysis," May 2026</li>
+      </div>
+    </div>
+
+    <!-- 06 RECOMMENDATIONS -->
+    <div class="panel" id="panel-recs">
+      <div class="panel-eyebrow">Recommendations</div>
+      <h2>What I'd prioritise if I were on the Ownly PM team right now</h2>
+      <p>Three recommendations sequenced by urgency, each addressing a specific load-bearing risk. Plus a Kano model mapping of Ownly's current and missing features.</p>
+
+      <!-- KANO MODEL -->
+      <div class="kano-grid">
+        <div class="kano-card must">
+          <div class="kano-head">Must-haves (Baseline)</div>
+          <div class="kano-item">Zero commission to restaurants</div>
+          <div class="kano-item">Price parity with dine-in</div>
+          <div class="kano-item">No hidden platform fees for customers</div>
+          <div class="kano-item">Reliable delivery via Captains</div>
+          <div class="kano-item">Basic order tracking</div>
+        </div>
+        <div class="kano-card perf">
+          <div class="kano-head">Performance (More = Better)</div>
+          <div class="kano-item">Delivery speed (currently unspecified)</div>
+          <div class="kano-item">Restaurant selection breadth</div>
+          <div class="kano-item">Customer support quality</div>
+          <div class="kano-item">Payment options variety</div>
+          <div class="kano-item">City coverage expansion speed</div>
+        </div>
+        <div class="kano-card delight">
+          <div class="kano-head">Delighters (Unexpected)</div>
+          <div class="kano-item">Loyalty stamps / repeat order rewards</div>
+          <div class="kano-item">Restaurant analytics for partners</div>
+          <div class="kano-item">Direct customer-restaurant messaging</div>
+          <div class="kano-item">Zero Commission Charter (contractual)</div>
+          <div class="kano-item">WhatsApp ordering for low-data users</div>
+        </div>
+      </div>
+
+      <p style="margin-top:6px;"><strong>Gap:</strong> Ownly's Must-haves are solid. Its Performance features are mostly unproven. Its Delighters column is almost entirely empty — and two of those delighters (loyalty and charter) directly address the biggest retention and credibility risks identified in panel 05.</p>
+
+      <div class="rec-block">
+        <div class="rec-num">Priority 01 — Critical</div>
+        <div class="rec-title">Build a second revenue stream before the first city hits profitability pressure</div>
+        <div class="rec-body">
+          The ₹30/order model works as customer acquisition but cannot be the end state. Rapido's own mobility business already wrote the playbook: <strong>captain subscriptions replaced per-ride commissions and became ₹275Cr of FY25 revenue — a 14× surge in one year.</strong><br><br>
+          <strong>What I'd test: a Restaurant Visibility Pass</strong> — optional ₹999–₹1,999/month subscription for featured placement, push notification access to nearby users, and weekly analytics dashboards. Positioned as a marketing tool (restaurants already pay lakhs for Zomato Ads), not a commission. The zero-commission promise stays intact. At 10% of 20K partners, that's ₹2–4Cr/month in recurring B2B revenue that doesn't require order volume to scale.<br><br>
+          <strong>A/B test to run:</strong> Split newly onboarded restaurants into two cohorts. Cohort A gets the standard zero-commission onboarding. Cohort B gets a 90-day free Visibility Pass trial then a conversion ask. Measure: does featured placement actually drive order lift? If yes, the product sells itself. If no, the feature needs redesign before monetisation.
+        </div>
+        <div class="rec-metric">Primary metric: <span>Visibility Pass conversion rate</span> · hypothesis: 8–12% within 90 days · secondary: does Pass status correlate with 30% more orders for that restaurant?</div>
+      </div>
+
+      <div class="rec-block">
+        <div class="rec-num">Priority 02 — High</div>
+        <div class="rec-title">Launch Ownly Stamp — a loyalty mechanic before expanding to a second city</div>
+        <div class="rec-body">
+          Ownly's biggest retention risk isn't price — it's that users with no sunk cost will follow the next promotion wherever it lands. Zomato Gold and Swiggy One create switching costs that price alone can't overcome.<br><br>
+          <strong>What I'd build: Ownly Stamp</strong> — a 10-order stamp card (no app update, works natively in-app) that grants a free delivery on the 10th order. No monthly fee, no sign-up friction — just a visible counter on the home screen that rewards repeat use. Economics: gifting one ₹30 delivery per 10-order cycle on average ~₹600 spend is a 5% loyalty cost — cheaper than any cashback programme.<br><br>
+          <strong>A/B test to run:</strong> Two Bengaluru districts. District A gets Stamp visible on homescreen. District B gets a one-time 10% discount on next order. Measure: which drives higher 30-day repeat rate? Hypothesis: the Stamp drives more repeat orders because it creates a visible progress goal (loss aversion), while the discount creates a single-use event and then resets.
+        </div>
+        <div class="rec-metric">Primary metric: <span>7-day repeat order rate, Stamp users vs control</span> · hypothesis: +25% frequency lift · secondary: average orders/month per active user in each cohort</div>
+      </div>
+
+      <div class="rec-block">
+        <div class="rec-num">Priority 03 — Medium</div>
+        <div class="rec-title">Publish a Zero Commission Charter with NRAI — make the promise contractual, not rhetorical</div>
+        <div class="rec-body">
+          Every restaurant owner who remembers Zomato's trajectory is waiting for Ownly's model shift. CEO promises are not binding. NRAI alignment is goodwill. Neither is protection against a future commission introduction.<br><br>
+          <strong>What I'd do:</strong> Work with NRAI to publish a formal <em>Zero Commission Charter</em> — a publicly reviewed, legally considered commitment with a specific named window. For example: <strong>"Ownly commits to zero order commission for any restaurant partner for the first 36 months of their partnership."</strong> This doesn't need to be a permanent promise — just long enough that restaurants make real investment in Ownly operations (dedicated packaging, exclusive promotions, staff training) before worrying about a model change.<br><br>
+          The 36-month window also gives Ownly time to build relationship depth that survives a future monetisation evolution — exactly as Rapido's Captain relationships survived the shift from per-ride cuts to subscriptions.
+        </div>
+        <div class="rec-metric">Signal to watch: <span>Restaurant NPS post-Charter announcement</span> · hypothesis: +15 NPS points among newly onboarded restaurants · also watch: average time from onboarding to first Ownly-exclusive promotion</div>
+      </div>
+
+      <div class="callout green">
+        <b>What I'd explicitly not prioritise: quick commerce</b>
+        Several analysts suggest Ownly add a Blinkit/Instamart equivalent for 10-minute delivery. I'd push back hard. Blinkit required Zomato to acquire it for ₹4,447Cr and run it as a separate business unit with dark stores and dedicated inventory. <strong>Ownly's structural advantage is restaurant supply and idle Captains — not inventory management.</strong> Rushing into quick commerce before food delivery is unit-economics positive risks Amazon's India food delivery mistake: entering without focus, burning capital, and exiting with no market share in either category.
+      </div>
+    </div>
+
+    <!-- 07 REFLECTIONS -->
+    <div class="panel" id="panel-reflections">
+      <div class="panel-eyebrow">Reflections</div>
+      <h2>What reading this model taught me</h2>
+      <p>The most interesting signal in Ownly's story isn't the zero-commission model — it's the sequence of three model pivots before launch. <strong>Starting with 8–15% commission, shifting to restaurant-pays-delivery, then to customer-pays-everything in under 12 months</strong> suggests a team doing genuine hypothesis-testing rather than executing a fixed plan. That's a positive PM signal: each pivot was likely data-driven, not reactive. The open question is whether they've now found the right equilibrium or are still searching.</p>
+      <p>I'd also stress-test the Meesho analogy more carefully than the CEO does in press. Meesho's advantage was social distribution — near-zero customer acquisition cost via WhatsApp. <strong>Ownly's demand generation relies on app downloads and individual user switching</strong>, both of which have a higher cost floor. The offline restaurants are a compelling supply-side story. They do not, by themselves, generate demand. The risk is that Ownly onboards 70K restaurants across Bengaluru and finds that order volume doesn't distribute to the long tail — it concentrates in the same 3,000 restaurants that Zomato and Swiggy also serve well.</p>
+      <p>Finally: <strong>Swiggy's decision to sell its 12% Rapido stake for ₹2,400Cr within weeks of Ownly launching is the single clearest external signal that Ownly is being taken seriously.</strong> When a competitor exits a ₹2,400Cr position rather than maintain a conflict, it's telling you something. That's a stronger endorsement of Ownly's threat potential than any analyst report or launch metric — and it's the number I'd put at the top of any Ownly funding pitch.</p>
+      <p>This is a case study I'll keep updating. The real test isn't Bengaluru launch metrics — it's whether the model holds when Ownly enters its second and third city, where Rapido's network is thinner and the incumbent habits are deeper. That's when we find out if this is a structural play or a well-funded experiment.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="case-foot-nav">
+  <a href="case2.html">
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Previous case
+  </a>
+  <a href="case4.html">
+    Next case
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<footer>
+  <span>Bengaluru · 2026</span>
+  <a href="https://www.linkedin.com/in/anjana1316/" target="_blank" rel="noopener">LinkedIn ↗</a>
+</footer>
+
+<script>
+  const navBtns = document.querySelectorAll('.side-nav button');
+  const panels  = document.querySelectorAll('.panel');
+  navBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const t = btn.dataset.panel;
+      navBtns.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-'+t).classList.add('active');
+      window.scrollTo({top:document.querySelector('.case-body').offsetTop-80,behavior:'smooth'});
+    });
+  });
+
+  /* Count-up for daily orders */
+  function countUp(el,target,suffix,duration){
+    const start=performance.now();
+    const update=(now)=>{
+      const p=Math.min((now-start)/duration,1);
+      const ease=1-Math.pow(1-p,3);
+      el.textContent=Math.floor(ease*target).toLocaleString('en-IN')+suffix;
+      if(p<1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        countUp(document.getElementById('cnt-orders'),5000,'/day',1800);
+        obs.disconnect();
+      }
+    });
+  },{threshold:0.3});
+  if(document.querySelector('.scoreboard')) obs.observe(document.querySelector('.scoreboard'));
+</script>
+
+</body>
+</html>
